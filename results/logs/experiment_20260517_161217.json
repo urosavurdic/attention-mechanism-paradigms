@@ -1,0 +1,4887 @@
+{
+  "timestamp": "2026-05-17T16:12:17.596627+00:00",
+  "environment": {
+    "python_version": "3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16) [MSC v.1940 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
+    "machine": "AMD64",
+    "numpy_version": "2.4.4",
+    "torch_version": "2.11.0+cpu",
+    "cuda_available": false
+  },
+  "config": {
+    "seq_lens": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "embed_dims": [
+      64,
+      128
+    ],
+    "num_heads": 8,
+    "warmup_runs": 2,
+    "benchmark_runs": 5,
+    "sim_max_seq_len": 32,
+    "sim_max_embed_dim": 16
+  },
+  "results": [
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 0.0012341000001470093,
+      "total_effective_time_s": 0.0012341000001470093,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 6.863729032485996,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 0.0004011999999420368,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0004011999999420368,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.291456e-06,
+            "compute_bound_time_s": 6.291456e-06,
+            "memory_bound_time_s": 4.9152e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00022940000008020434,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00022940000008020434,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-06,
+            "compute_bound_time_s": 4.194304e-06,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0002564000001257227,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0002564000001257227,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.62144e-06,
+            "compute_bound_time_s": 1.6384e-07,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.00015389999998660642,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00015389999998660642,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-06,
+            "compute_bound_time_s": 4.194304e-06,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.00019320000001243898,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00019320000001243898,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.097152e-06,
+            "compute_bound_time_s": 2.097152e-06,
+            "memory_bound_time_s": 1.6384e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 0.0014488999995592167,
+      "total_effective_time_s": 0.0014488999995592167,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 17.42545655854845,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.0005960999997114413,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0005960999997114413,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.5165824e-05,
+            "compute_bound_time_s": 2.5165824e-05,
+            "memory_bound_time_s": 1.179648e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00022209999997357954,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00022209999997357954,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 3.93216e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00022179999996296829,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00022179999996296829,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.62144e-06,
+            "compute_bound_time_s": 1.6384e-07,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00021789999982502195,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00021789999982502195,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 3.93216e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00019100000008620555,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00019100000008620555,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 3.93216e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 0.002306500000941014,
+      "total_effective_time_s": 0.002306500000941014,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 11.05289572495082,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.00042600000006132177,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00042600000006132177,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.2582912e-05,
+            "compute_bound_time_s": 1.2582912e-05,
+            "memory_bound_time_s": 8.84736e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0005086000001028879,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0005086000001028879,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 7.86432e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0008531000003131339,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0008531000003131339,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.048576e-05,
+            "compute_bound_time_s": 6.5536e-07,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0003505000004224712,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0003505000004224712,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 7.86432e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00016830000004119938,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00016830000004119938,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-06,
+            "compute_bound_time_s": 4.194304e-06,
+            "memory_bound_time_s": 2.94912e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.004664399999455782,
+      "total_effective_time_s": 0.004664399999455782,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 14.457710318126265,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.0010781999999380787,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0010781999999380787,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 5.0331648e-05,
+            "compute_bound_time_s": 5.0331648e-05,
+            "memory_bound_time_s": 1.96608e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.000943499999721098,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.000943499999721098,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 3.3554432e-05,
+            "compute_bound_time_s": 3.3554432e-05,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0015975999999682244,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0015975999999682244,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.048576e-05,
+            "compute_bound_time_s": 6.5536e-07,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0006733000000167522,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0006733000000167522,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 3.3554432e-05,
+            "compute_bound_time_s": 3.3554432e-05,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.00037179999981162837,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00037179999981162837,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 6.5536e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.009556600000450999,
+      "total_effective_time_s": 0.009556600000450999,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 8.914969758698634,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.00048210000022663735,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00048210000022663735,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.5165824e-05,
+            "compute_bound_time_s": 2.5165824e-05,
+            "memory_bound_time_s": 1.671168e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.0027251999999862164,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0027251999999862164,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.7108864e-05,
+            "compute_bound_time_s": 6.7108864e-05,
+            "memory_bound_time_s": 2.62144e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.005195400000047812,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.005195400000047812,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-05,
+            "compute_bound_time_s": 2.62144e-06,
+            "memory_bound_time_s": 4.194304e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0009697000000414846,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0009697000000414846,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.7108864e-05,
+            "compute_bound_time_s": 6.7108864e-05,
+            "memory_bound_time_s": 2.62144e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.00018420000014884863,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00018420000014884863,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 5.57056e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.011665700000321522,
+      "total_effective_time_s": 0.011665700000321522,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 17.370351714377623,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.0012341000001470093,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0012341000001470093,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000100663296,
+            "compute_bound_time_s": 0.000100663296,
+            "memory_bound_time_s": 3.538944e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.0033364000000801752,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0033364000000801752,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000134217728,
+            "compute_bound_time_s": 0.000134217728,
+            "memory_bound_time_s": 3.145728e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.005153300000074523,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.005153300000074523,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-05,
+            "compute_bound_time_s": 2.62144e-06,
+            "memory_bound_time_s": 4.194304e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0015646000001652283,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0015646000001652283,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000134217728,
+            "compute_bound_time_s": 0.000134217728,
+            "memory_bound_time_s": 3.145728e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0003772999998545856,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0003772999998545856,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 3.3554432e-05,
+            "compute_bound_time_s": 3.3554432e-05,
+            "memory_bound_time_s": 1.179648e-05,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 0.03471850000050836,
+      "total_effective_time_s": 0.03471850000050836,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 8.849252358123232,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.0008713000001989712,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0008713000001989712,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "roofline_estimate_s": 5.0331648e-05,
+            "compute_bound_time_s": 5.0331648e-05,
+            "memory_bound_time_s": 3.244032e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.010108200000104262,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.010108200000104262,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000268435456,
+            "compute_bound_time_s": 0.000268435456,
+            "memory_bound_time_s": 9.437184e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.019835000000057335,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.019835000000057335,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.00016777216,
+            "compute_bound_time_s": 1.048576e-05,
+            "memory_bound_time_s": 0.00016777216,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.003628200000093784,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.003628200000093784,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000268435456,
+            "compute_bound_time_s": 0.000268435456,
+            "memory_bound_time_s": 9.437184e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00027580000005400507,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00027580000005400507,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 1.081344e-05,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.042346899999756715,
+      "total_effective_time_s": 0.042346899999756715,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 15.971216783374594,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 0.003144600000268838,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.003144600000268838,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000201326592,
+            "compute_bound_time_s": 0.000201326592,
+            "memory_bound_time_s": 6.684672e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.012333599999692524,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.012333599999692524,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000536870912,
+            "compute_bound_time_s": 0.000536870912,
+            "memory_bound_time_s": 0.0001048576,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.01943359999995664,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.01943359999995664,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.00016777216,
+            "compute_bound_time_s": 1.048576e-05,
+            "memory_bound_time_s": 0.00016777216,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.0062204999999266875,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0062204999999266875,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000536870912,
+            "compute_bound_time_s": 0.000536870912,
+            "memory_bound_time_s": 0.0001048576,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.001214599999912025,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.001214599999912025,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.7108864e-05,
+            "compute_bound_time_s": 6.7108864e-05,
+            "memory_bound_time_s": 2.228224e-05,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 0.0007778000003781926,
+      "total_effective_time_s": 5.22528e-05,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 162.10668136444363,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 0.00015556000007563853,
+          "estimated_hw_time_seconds": 1.0768000000000001e-05,
+          "effective_time": 1.0768000000000001e-05,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "compute_bound_time_s": 3.8836148148148147e-07,
+            "memory_bound_time_s": 7.68e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0768000000000001e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00015556000007563853,
+          "estimated_hw_time_seconds": 1.0409600000000001e-05,
+          "effective_time": 1.0409600000000001e-05,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "compute_bound_time_s": 2.5890765432098763e-07,
+            "memory_bound_time_s": 4.096e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0409600000000001e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00015556000007563853,
+          "estimated_hw_time_seconds": 1.0409600000000001e-05,
+          "effective_time": 1.0409600000000001e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.011358024691358e-08,
+            "memory_bound_time_s": 4.096e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0409600000000001e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.00015556000007563853,
+          "estimated_hw_time_seconds": 1.0409600000000001e-05,
+          "effective_time": 1.0409600000000001e-05,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "compute_bound_time_s": 2.5890765432098763e-07,
+            "memory_bound_time_s": 4.096e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0409600000000001e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.00015556000007563853,
+          "estimated_hw_time_seconds": 1.0256000000000001e-05,
+          "effective_time": 1.0256000000000001e-05,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.2945382716049381e-07,
+            "memory_bound_time_s": 2.56e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0256000000000001e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 0.0018282999999428284,
+      "total_effective_time_s": 5.4096000000000005e-05,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 466.7210884353741,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.0003656599999885657,
+          "estimated_hw_time_seconds": 1.18432e-05,
+          "effective_time": 1.18432e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.5534459259259259e-06,
+            "memory_bound_time_s": 1.8432e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.18432e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0003656599999885657,
+          "estimated_hw_time_seconds": 1.0614400000000001e-05,
+          "effective_time": 1.0614400000000001e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "compute_bound_time_s": 5.178153086419753e-07,
+            "memory_bound_time_s": 6.144e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0614400000000001e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0003656599999885657,
+          "estimated_hw_time_seconds": 1.0409600000000001e-05,
+          "effective_time": 1.0409600000000001e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.011358024691358e-08,
+            "memory_bound_time_s": 4.096e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0409600000000001e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0003656599999885657,
+          "estimated_hw_time_seconds": 1.0614400000000001e-05,
+          "effective_time": 1.0614400000000001e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "compute_bound_time_s": 5.178153086419753e-07,
+            "memory_bound_time_s": 6.144e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0614400000000001e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0003656599999885657,
+          "estimated_hw_time_seconds": 1.0614400000000001e-05,
+          "effective_time": 1.0614400000000001e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "compute_bound_time_s": 5.178153086419753e-07,
+            "memory_bound_time_s": 6.144e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0614400000000001e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 0.001962700000149198,
+      "total_effective_time_s": 5.59392e-05,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 455.7359418797551,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.00039254000002983955,
+          "estimated_hw_time_seconds": 1.1382400000000001e-05,
+          "effective_time": 1.1382400000000001e-05,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "compute_bound_time_s": 7.767229629629629e-07,
+            "memory_bound_time_s": 1.3824e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.1382400000000001e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00039254000002983955,
+          "estimated_hw_time_seconds": 1.12288e-05,
+          "effective_time": 1.12288e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.0356306172839505e-06,
+            "memory_bound_time_s": 1.2288e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.12288e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00039254000002983955,
+          "estimated_hw_time_seconds": 1.16384e-05,
+          "effective_time": 1.16384e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 4.045432098765432e-08,
+            "memory_bound_time_s": 1.6384e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.16384e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00039254000002983955,
+          "estimated_hw_time_seconds": 1.12288e-05,
+          "effective_time": 1.12288e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.0356306172839505e-06,
+            "memory_bound_time_s": 1.2288e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.12288e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00039254000002983955,
+          "estimated_hw_time_seconds": 1.0460800000000002e-05,
+          "effective_time": 1.0460800000000002e-05,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "compute_bound_time_s": 2.5890765432098763e-07,
+            "memory_bound_time_s": 4.608e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.0460800000000002e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.0033089999997173436,
+      "total_effective_time_s": 5.9923444938271606e-05,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 1125.3782900744072,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.0006617999999434688,
+          "estimated_hw_time_seconds": 1.3106891851851853e-05,
+          "effective_time": 1.3106891851851853e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "compute_bound_time_s": 3.1068918518518518e-06,
+            "memory_bound_time_s": 3.072e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.3106891851851853e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0006617999999434688,
+          "estimated_hw_time_seconds": 1.2071261234567901e-05,
+          "effective_time": 1.2071261234567901e-05,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "compute_bound_time_s": 2.071261234567901e-06,
+            "memory_bound_time_s": 1.6384e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.2071261234567901e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0006617999999434688,
+          "estimated_hw_time_seconds": 1.16384e-05,
+          "effective_time": 1.16384e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 4.045432098765432e-08,
+            "memory_bound_time_s": 1.6384e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.16384e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0006617999999434688,
+          "estimated_hw_time_seconds": 1.2071261234567901e-05,
+          "effective_time": 1.2071261234567901e-05,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "compute_bound_time_s": 2.071261234567901e-06,
+            "memory_bound_time_s": 1.6384e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.2071261234567901e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0006617999999434688,
+          "estimated_hw_time_seconds": 1.1035630617283951e-05,
+          "effective_time": 1.1035630617283951e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.0356306172839505e-06,
+            "memory_bound_time_s": 1.024e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.1035630617283951e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.011337999999796011,
+      "total_effective_time_s": 6.83202449382716e-05,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 1247.0212903507097,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.002267599999959202,
+          "estimated_hw_time_seconds": 1.26112e-05,
+          "effective_time": 1.26112e-05,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.5534459259259259e-06,
+            "memory_bound_time_s": 2.6112e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.26112e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.002267599999959202,
+          "estimated_hw_time_seconds": 1.4142522469135804e-05,
+          "effective_time": 1.4142522469135804e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "compute_bound_time_s": 4.142522469135802e-06,
+            "memory_bound_time_s": 4.096e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.4142522469135804e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.002267599999959202,
+          "estimated_hw_time_seconds": 1.65536e-05,
+          "effective_time": 1.65536e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.618172839506173e-07,
+            "memory_bound_time_s": 6.5536e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.65536e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.002267599999959202,
+          "estimated_hw_time_seconds": 1.4142522469135804e-05,
+          "effective_time": 1.4142522469135804e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "compute_bound_time_s": 4.142522469135802e-06,
+            "memory_bound_time_s": 4.096e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.4142522469135804e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.002267599999959202,
+          "estimated_hw_time_seconds": 1.08704e-05,
+          "effective_time": 1.08704e-05,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "compute_bound_time_s": 5.178153086419753e-07,
+            "memory_bound_time_s": 8.704e-07,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.08704e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.01217259999975795,
+      "total_effective_time_s": 8.140873481481482e-05,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 2489.1347649727127,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.00243451999995159,
+          "estimated_hw_time_seconds": 1.6213783703703704e-05,
+          "effective_time": 1.6213783703703704e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "compute_bound_time_s": 6.2137837037037035e-06,
+            "memory_bound_time_s": 5.5296e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.6213783703703704e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.00243451999995159,
+          "estimated_hw_time_seconds": 1.8285044938271605e-05,
+          "effective_time": 1.8285044938271605e-05,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "compute_bound_time_s": 8.285044938271604e-06,
+            "memory_bound_time_s": 4.9152e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.8285044938271605e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.00243451999995159,
+          "estimated_hw_time_seconds": 1.65536e-05,
+          "effective_time": 1.65536e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.618172839506173e-07,
+            "memory_bound_time_s": 6.5536e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.65536e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00243451999995159,
+          "estimated_hw_time_seconds": 1.8285044938271605e-05,
+          "effective_time": 1.8285044938271605e-05,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "compute_bound_time_s": 8.285044938271604e-06,
+            "memory_bound_time_s": 4.9152e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.8285044938271605e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00243451999995159,
+          "estimated_hw_time_seconds": 1.2071261234567901e-05,
+          "effective_time": 1.2071261234567901e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "compute_bound_time_s": 2.071261234567901e-06,
+            "memory_bound_time_s": 1.8432e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.2071261234567901e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 0.03686199999992823,
+      "total_effective_time_s": 0.00011611297975308643,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 2645.9812559571606,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.007372399999985646,
+          "estimated_hw_time_seconds": 1.50688e-05,
+          "effective_time": 1.50688e-05,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "compute_bound_time_s": 3.1068918518518518e-06,
+            "memory_bound_time_s": 5.0688e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.50688e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.007372399999985646,
+          "estimated_hw_time_seconds": 2.657008987654321e-05,
+          "effective_time": 2.657008987654321e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.6570089876543208e-05,
+            "memory_bound_time_s": 1.47456e-05,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 2.657008987654321e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.007372399999985646,
+          "estimated_hw_time_seconds": 3.6214400000000003e-05,
+          "effective_time": 3.6214400000000003e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 6.472691358024692e-07,
+            "memory_bound_time_s": 2.62144e-05,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 3.6214400000000003e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.007372399999985646,
+          "estimated_hw_time_seconds": 2.657008987654321e-05,
+          "effective_time": 2.657008987654321e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.6570089876543208e-05,
+            "memory_bound_time_s": 1.47456e-05,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 2.657008987654321e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.007372399999985646,
+          "estimated_hw_time_seconds": 1.16896e-05,
+          "effective_time": 1.16896e-05,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.0356306172839505e-06,
+            "memory_bound_time_s": 1.6896e-06,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 1.16896e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GPU (Control Flow)",
+      "paradigm_short": "gpu",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.04463899999973364,
+      "total_effective_time_s": 0.00015906484938271604,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 4251.923178657284,
+      "paradigm_info": {
+        "execution_mode": "roofline_simulation",
+        "gpu_model": "NVIDIA T4 (estimated)",
+        "peak_tflops_fp32": 8.1,
+        "memory_bw_gb_s": 320.0
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 0.008927799999946728,
+          "estimated_hw_time_seconds": 2.242756740740741e-05,
+          "effective_time": 2.242756740740741e-05,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "compute_bound_time_s": 1.2427567407407407e-05,
+            "memory_bound_time_s": 1.04448e-05,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 2.242756740740741e-05
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.008927799999946728,
+          "estimated_hw_time_seconds": 4.3140179753086416e-05,
+          "effective_time": 4.3140179753086416e-05,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "compute_bound_time_s": 3.3140179753086416e-05,
+            "memory_bound_time_s": 1.6384e-05,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 4.3140179753086416e-05
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.008927799999946728,
+          "estimated_hw_time_seconds": 3.6214400000000003e-05,
+          "effective_time": 3.6214400000000003e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "compute_bound_time_s": 6.472691358024692e-07,
+            "memory_bound_time_s": 2.62144e-05,
+            "bottleneck": "memory",
+            "roofline_estimate_s": 3.6214400000000003e-05
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.008927799999946728,
+          "estimated_hw_time_seconds": 4.3140179753086416e-05,
+          "effective_time": 4.3140179753086416e-05,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "compute_bound_time_s": 3.3140179753086416e-05,
+            "memory_bound_time_s": 1.6384e-05,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 4.3140179753086416e-05
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.008927799999946728,
+          "estimated_hw_time_seconds": 1.4142522469135804e-05,
+          "effective_time": 1.4142522469135804e-05,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "compute_bound_time_s": 4.142522469135802e-06,
+            "memory_bound_time_s": 3.4816e-06,
+            "bottleneck": "compute",
+            "roofline_estimate_s": 1.4142522469135804e-05
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 0.000445900000158872,
+      "total_effective_time_s": 0.055455750000000005,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 0.15274390843149716,
+      "paradigm_info": {
+        "total_instructions": 17119238,
+        "total_estimated_cycles": 55455750,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 0.00028480000037234277,
+          "estimated_hw_time_seconds": 0.020545539,
+          "effective_time": 0.020545539,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "instructions": 6340611,
+            "estimated_cycles": 20545539,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.013697025,
+          "effective_time": 0.013697025,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "instructions": 4227073,
+            "estimated_cycles": 13697025
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00015919999987090705,
+          "estimated_hw_time_seconds": 0.000700416,
+          "effective_time": 0.000700416,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 227328,
+            "estimated_cycles": 700416
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 6.999998731771484e-07,
+          "estimated_hw_time_seconds": 0.013664257,
+          "effective_time": 0.013664257,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "instructions": 4210689,
+            "estimated_cycles": 13664257
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.006848513,
+          "effective_time": 0.006848513,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "instructions": 2113537,
+            "estimated_cycles": 6848513
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 0.001107799999317649,
+      "total_effective_time_s": 0.164671494,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 0.15332188581467537,
+      "paradigm_info": {
+        "total_instructions": 50755590,
+        "total_estimated_cycles": 164671494,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.0007174999996095721,
+          "estimated_hw_time_seconds": 0.081985539,
+          "effective_time": 0.081985539,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "instructions": 25264131,
+            "estimated_cycles": 81985539,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.6999997569655534e-06,
+          "estimated_hw_time_seconds": 0.027328513,
+          "effective_time": 0.027328513,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "instructions": 8421377,
+            "estimated_cycles": 27328513
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0003849999998237763,
+          "estimated_hw_time_seconds": 0.000700416,
+          "effective_time": 0.000700416,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 227328,
+            "estimated_cycles": 700416
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 2.100000074278796e-06,
+          "estimated_hw_time_seconds": 0.027328513,
+          "effective_time": 0.027328513,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "instructions": 8421377,
+            "estimated_cycles": 27328513
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 0.027328513,
+          "effective_time": 0.027328513,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "instructions": 8421377,
+            "estimated_cycles": 27328513
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 0.0004296000006434042,
+      "total_effective_time_s": 0.16696935,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 0.15268373506874167,
+      "paradigm_info": {
+        "total_instructions": 51535878,
+        "total_estimated_cycles": 166969350,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.00027360000012777164,
+          "estimated_hw_time_seconds": 0.041091075,
+          "effective_time": 0.041091075,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "instructions": 12681219,
+            "estimated_cycles": 41091075,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.054788097,
+          "effective_time": 0.054788097,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "instructions": 16908289,
+            "estimated_cycles": 54788097
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00015420000045196502,
+          "estimated_hw_time_seconds": 0.002801664,
+          "effective_time": 0.002801664,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 909312,
+            "estimated_cycles": 2801664
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.054591489,
+          "effective_time": 0.054591489,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "instructions": 16809985,
+            "estimated_cycles": 54591489
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.013697025,
+          "effective_time": 0.013697025,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "instructions": 4227073,
+            "estimated_cycles": 13697025
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.0004468999991331657,
+      "total_effective_time_s": 0.43992679,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 0.1532903781558745,
+      "paradigm_info": {
+        "total_instructions": 135585798,
+        "total_estimated_cycles": 439926790,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.00028469999961089343,
+          "estimated_hw_time_seconds": 0.163971075,
+          "effective_time": 0.163971075,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "instructions": 50528259,
+            "estimated_cycles": 163971075,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.109314049,
+          "effective_time": 0.109314049,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "instructions": 33685505,
+            "estimated_cycles": 109314049
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00016039999991335208,
+          "estimated_hw_time_seconds": 0.002801664,
+          "effective_time": 0.002801664,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 909312,
+            "estimated_cycles": 2801664
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 5.999995664751623e-07,
+          "estimated_hw_time_seconds": 0.109182977,
+          "effective_time": 0.109182977,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "instructions": 33619969,
+            "estimated_cycles": 109182977
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.054657025,
+          "effective_time": 0.054657025,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "instructions": 16842753,
+            "estimated_cycles": 54657025
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.0004308000002311019,
+      "total_effective_time_s": 0.558170118,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 0.1526359030205196,
+      "paradigm_info": {
+        "total_instructions": 172261382,
+        "total_estimated_cycles": 558170118,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.0002741000002970395,
+          "estimated_hw_time_seconds": 0.082182147,
+          "effective_time": 0.082182147,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "instructions": 25362435,
+            "estimated_cycles": 82182147,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.219152385,
+          "effective_time": 0.219152385,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "instructions": 67633153,
+            "estimated_cycles": 219152385
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.00015470000016648555,
+          "estimated_hw_time_seconds": 0.011206656,
+          "effective_time": 0.011206656,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 3637248,
+            "estimated_cycles": 11206656
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 6.999998731771484e-07,
+          "estimated_hw_time_seconds": 0.218234881,
+          "effective_time": 0.218234881,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "instructions": 67174401,
+            "estimated_cycles": 218234881
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 6.999998731771484e-07,
+          "estimated_hw_time_seconds": 0.027394049,
+          "effective_time": 0.027394049,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "instructions": 8454145,
+            "estimated_cycles": 27394049
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.0004483999996409693,
+      "total_effective_time_s": 1.322188806,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 0.15325898319547565,
+      "paradigm_info": {
+        "total_instructions": 407470086,
+        "total_estimated_cycles": 1322188806,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.0002851999997801613,
+          "estimated_hw_time_seconds": 0.327942147,
+          "effective_time": 0.327942147,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "instructions": 101056515,
+            "estimated_cycles": 327942147,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.437256193,
+          "effective_time": 0.437256193,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "instructions": 134742017,
+            "estimated_cycles": 437256193
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.00016109999978652922,
+          "estimated_hw_time_seconds": 0.011206656,
+          "effective_time": 0.011206656,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 3637248,
+            "estimated_cycles": 11206656
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 9.000000318337698e-07,
+          "estimated_hw_time_seconds": 0.436469761,
+          "effective_time": 0.436469761,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "instructions": 134348801,
+            "estimated_cycles": 436469761
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 6.000000212225132e-07,
+          "estimated_hw_time_seconds": 0.109314049,
+          "effective_time": 0.109314049,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "instructions": 33685505,
+            "estimated_cycles": 109314049
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 0.000449799999842071,
+      "total_effective_time_s": 2.013265926,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 0.1526041662118708,
+      "paradigm_info": {
+        "total_instructions": 621281286,
+        "total_estimated_cycles": 2013265926,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.0002862999999706517,
+          "estimated_hw_time_seconds": 0.164364291,
+          "effective_time": 0.164364291,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "instructions": 50724867,
+            "estimated_cycles": 164364291,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 7.000003279244993e-07,
+          "estimated_hw_time_seconds": 0.876609537,
+          "effective_time": 0.876609537,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "instructions": 270532609,
+            "estimated_cycles": 876609537
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.00016069999992396333,
+          "estimated_hw_time_seconds": 0.044826624,
+          "effective_time": 0.044826624,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 14548992,
+            "estimated_cycles": 44826624
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.2000000424450263e-06,
+          "estimated_hw_time_seconds": 0.872677377,
+          "effective_time": 0.872677377,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "instructions": 268566529,
+            "estimated_cycles": 872677377
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 8.999995770864189e-07,
+          "estimated_hw_time_seconds": 0.054788097,
+          "effective_time": 0.054788097,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "instructions": 16908289,
+            "estimated_cycles": 54788097
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "GaAs (RISC-V)",
+      "paradigm_short": "gaas_riscv",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.00044579999939742265,
+      "total_effective_time_s": 4.413718534,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 0.15323394883249705,
+      "paradigm_info": {
+        "total_instructions": 1360134150,
+        "total_estimated_cycles": 4413718534,
+        "isa": "RISC-V RV32I subset (10 instructions)",
+        "cycle_model": "1 ALU, 3 MUL, 4 LW, 10 FDIV"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 0.00028350000002319575,
+          "estimated_hw_time_seconds": 0.655884291,
+          "effective_time": 0.655884291,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "instructions": 202113027,
+            "estimated_cycles": 655884291,
+            "demo_instruction_breakdown": {
+              "ADD": 16,
+              "LW": 128,
+              "FMUL": 64,
+              "FADD": 64,
+              "SW": 16,
+              "HALT": 1
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 6.999998731771484e-07,
+          "estimated_hw_time_seconds": 1.749024769,
+          "effective_time": 1.749024769,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "instructions": 538968065,
+            "estimated_cycles": 1749024769
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.00016009999990274082,
+          "estimated_hw_time_seconds": 0.044826624,
+          "effective_time": 0.044826624,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "instructions": 14548992,
+            "estimated_cycles": 44826624
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 9.000000318337698e-07,
+          "estimated_hw_time_seconds": 1.745354753,
+          "effective_time": 1.745354753,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "instructions": 537133057,
+            "estimated_cycles": 1745354753
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 5.999995664751623e-07,
+          "estimated_hw_time_seconds": 0.218628097,
+          "effective_time": 0.218628097,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "instructions": 67371009,
+            "estimated_cycles": 218628097
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 1.9400000383029692e-05,
+      "total_effective_time_s": 11.8915072,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 0.0007123174428217139,
+      "paradigm_info": {
+        "total_tm_operations": 118915072,
+        "estimated_hw_time_s": 11.8915072,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 1.250000013897079e-05,
+          "estimated_hw_time_seconds": 4.4040192,
+          "effective_time": 4.4040192,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "estimated_tm_ops": 44040192,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.600000359758269e-06,
+          "estimated_hw_time_seconds": 2.9360128,
+          "effective_time": 2.9360128,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "estimated_tm_ops": 29360128
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.8999999156221747e-06,
+          "estimated_hw_time_seconds": 0.147456,
+          "effective_time": 0.147456,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 1474560,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 1.8999999156221747e-06,
+          "estimated_hw_time_seconds": 2.9360128,
+          "effective_time": 2.9360128,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "estimated_tm_ops": 29360128
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 1.4680064,
+          "effective_time": 1.4680064,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "estimated_tm_ops": 14680064
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 1.6599999526079046e-05,
+      "total_effective_time_s": 35.379609599999995,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 0.0007136241548578309,
+      "paradigm_info": {
+        "total_tm_operations": 353796096,
+        "estimated_hw_time_s": 35.3796096,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 1.0799999927257886e-05,
+          "estimated_hw_time_seconds": 17.6160768,
+          "effective_time": 17.6160768,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "estimated_tm_ops": 176160768,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.4000002011016477e-06,
+          "estimated_hw_time_seconds": 5.8720256,
+          "effective_time": 5.8720256,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "estimated_tm_ops": 58720256
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.6999997569655534e-06,
+          "estimated_hw_time_seconds": 0.147456,
+          "effective_time": 0.147456,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 1474560,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.2999998943996616e-06,
+          "estimated_hw_time_seconds": 5.8720256,
+          "effective_time": 5.8720256,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "estimated_tm_ops": 58720256
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.3999997463542968e-06,
+          "estimated_hw_time_seconds": 5.8720256,
+          "effective_time": 5.8720256,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "estimated_tm_ops": 58720256
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 1.8700000055105193e-05,
+      "total_effective_time_s": 35.8219776,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 0.000711672155140871,
+      "paradigm_info": {
+        "total_tm_operations": 358219776,
+        "estimated_hw_time_s": 35.8219776,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 1.2599999990925426e-05,
+          "estimated_hw_time_seconds": 8.8080384,
+          "effective_time": 8.8080384,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "estimated_tm_ops": 88080384,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 11.7440512,
+          "effective_time": 11.7440512,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "estimated_tm_ops": 117440512
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.8000000636675395e-06,
+          "estimated_hw_time_seconds": 0.589824,
+          "effective_time": 0.589824,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 5898240,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 11.7440512,
+          "effective_time": 11.7440512,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "estimated_tm_ops": 117440512
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.2999998943996616e-06,
+          "estimated_hw_time_seconds": 2.9360128,
+          "effective_time": 2.9360128,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "estimated_tm_ops": 29360128
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 1.6800000139483018e-05,
+      "total_effective_time_s": 94.54223359999999,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 0.0007132954387910718,
+      "paradigm_info": {
+        "total_tm_operations": 945422336,
+        "estimated_hw_time_s": 94.5422336,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 1.1099999937869143e-05,
+          "estimated_hw_time_seconds": 35.2321536,
+          "effective_time": 35.2321536,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "estimated_tm_ops": 352321536,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 23.4881024,
+          "effective_time": 23.4881024,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "estimated_tm_ops": 234881024
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 0.589824,
+          "effective_time": 0.589824,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 5898240,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 1.4000002011016477e-06,
+          "estimated_hw_time_seconds": 23.4881024,
+          "effective_time": 23.4881024,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "estimated_tm_ops": 234881024
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 1.2999998943996616e-06,
+          "estimated_hw_time_seconds": 11.7440512,
+          "effective_time": 11.7440512,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "estimated_tm_ops": 117440512
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 1.6800000139483018e-05,
+      "total_effective_time_s": 119.799808,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 0.0007111597374179431,
+      "paradigm_info": {
+        "total_tm_operations": 1197998080,
+        "estimated_hw_time_s": 119.799808,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 1.1000000085914508e-05,
+          "estimated_hw_time_seconds": 17.6160768,
+          "effective_time": 17.6160768,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "estimated_tm_ops": 176160768,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 1.500000053056283e-06,
+          "estimated_hw_time_seconds": 46.9762048,
+          "effective_time": 46.9762048,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "estimated_tm_ops": 469762048
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 1.600000359758269e-06,
+          "estimated_hw_time_seconds": 2.359296,
+          "effective_time": 2.359296,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 23592960,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 1.3999997463542968e-06,
+          "estimated_hw_time_seconds": 46.9762048,
+          "effective_time": 46.9762048,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "estimated_tm_ops": 469762048
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 1.2999998943996616e-06,
+          "estimated_hw_time_seconds": 5.8720256,
+          "effective_time": 5.8720256,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "estimated_tm_ops": 58720256
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 3.629999946497264e-05,
+      "total_effective_time_s": 284.2165248,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 0.0007129680870688065,
+      "paradigm_info": {
+        "total_tm_operations": 2842165248,
+        "estimated_hw_time_s": 284.2165248,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 2.3999999939405825e-05,
+          "estimated_hw_time_seconds": 70.4643072,
+          "effective_time": 70.4643072,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "estimated_tm_ops": 704643072,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 3.3000001167238224e-06,
+          "estimated_hw_time_seconds": 93.9524096,
+          "effective_time": 93.9524096,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "estimated_tm_ops": 939524096
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 3.1999998100218363e-06,
+          "estimated_hw_time_seconds": 2.359296,
+          "effective_time": 2.359296,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 23592960,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 3.1999998100218363e-06,
+          "estimated_hw_time_seconds": 93.9524096,
+          "effective_time": 93.9524096,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "estimated_tm_ops": 939524096
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 2.599999788799323e-06,
+          "estimated_hw_time_seconds": 23.4881024,
+          "effective_time": 23.4881024,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "estimated_tm_ops": 234881024
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 3.499999957057298e-05,
+      "total_effective_time_s": 432.2230272,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 0.0007108199902959728,
+      "paradigm_info": {
+        "total_tm_operations": 4322230272,
+        "estimated_hw_time_s": 432.2230272,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 2.190000031987438e-05,
+          "estimated_hw_time_seconds": 35.2321536,
+          "effective_time": 35.2321536,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "estimated_tm_ops": 352321536,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 3.2999996619764715e-06,
+          "estimated_hw_time_seconds": 187.9048192,
+          "effective_time": 187.9048192,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "estimated_tm_ops": 1879048192
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 3.2999996619764715e-06,
+          "estimated_hw_time_seconds": 9.437184,
+          "effective_time": 9.437184,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 94371840,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 3.1999998100218363e-06,
+          "estimated_hw_time_seconds": 187.9048192,
+          "effective_time": 187.9048192,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "estimated_tm_ops": 1879048192
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 3.3000001167238224e-06,
+          "estimated_hw_time_seconds": 11.7440512,
+          "effective_time": 11.7440512,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "estimated_tm_ops": 117440512
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CdTe (Turing Machine)",
+      "paradigm_short": "cdte_turing",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 2.1500000457308488e-05,
+      "total_effective_time_s": 948.96128,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 0.0007127071823204421,
+      "paradigm_info": {
+        "total_tm_operations": 9489612800,
+        "estimated_hw_time_s": 948.96128,
+        "clock_hz": 10000000.0,
+        "isa": "4 ops: SKIP, CSKIP, INC, ADD",
+        "arithmetic": "integer only",
+        "multiply_method": "repeated addition O(a*b)"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 1.4599999758502236e-05,
+          "estimated_hw_time_seconds": 140.9286144,
+          "effective_time": 140.9286144,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "estimated_tm_ops": 1409286144,
+            "demo_tm_steps": 0,
+            "demo_op_counts": {
+              "SKIP": 0,
+              "CSKIP": 0,
+              "INC": 0,
+              "ADD": 0
+            }
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 2.000000222324161e-06,
+          "estimated_hw_time_seconds": 375.8096384,
+          "effective_time": 375.8096384,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "estimated_tm_ops": 3758096384
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 1.7000002117129043e-06,
+          "estimated_hw_time_seconds": 9.437184,
+          "effective_time": 9.437184,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "estimated_tm_ops": 94371840,
+            "note": "exp/div extremely costly on TM"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 1.8000000636675395e-06,
+          "estimated_hw_time_seconds": 375.8096384,
+          "effective_time": 375.8096384,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "estimated_tm_ops": 3758096384
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 1.4000002011016477e-06,
+          "estimated_hw_time_seconds": 46.9762048,
+          "effective_time": 46.9762048,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "estimated_tm_ops": 469762048
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 3.129999959128327e-05,
+      "total_effective_time_s": 3.7802e-05,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 224.07618644516162,
+      "paradigm_info": {
+        "total_effective_cycles": 18901,
+        "estimated_hw_time_s": 3.7802e-05,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 6.499999926745659e-06,
+          "estimated_hw_time_seconds": 1.2448e-05,
+          "effective_time": 1.2448e-05,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 24895,
+            "effective_cycles": 6224,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 24576,
+            "utilization": "98.72%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 6.199999916134402e-06,
+          "estimated_hw_time_seconds": 8.352e-06,
+          "effective_time": 8.352e-06,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 16703,
+            "effective_cycles": 4176,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 16384,
+            "utilization": "98.09%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.8999999156221747e-06,
+          "estimated_hw_time_seconds": 8.33e-06,
+          "effective_time": 8.33e-06,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 16658,
+            "effective_cycles": 4165,
+            "parallel_pipes": 4,
+            "pipeline_depth": 275,
+            "stream_length": 16384,
+            "utilization": "98.36%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 1.0599999768601265e-05,
+          "estimated_hw_time_seconds": 4.416e-06,
+          "effective_time": 4.416e-06,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 8831,
+            "effective_cycles": 2208,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 8192,
+            "utilization": "92.76%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 6.100000064179767e-06,
+          "estimated_hw_time_seconds": 4.256e-06,
+          "effective_time": 4.256e-06,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 8511,
+            "effective_cycles": 2128,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 8192,
+            "utilization": "96.25%",
+            "num_stages": 64
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 4.679999892687192e-05,
+      "total_effective_time_s": 5.8762000000000004e-05,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 429.66107348286306,
+      "paradigm_info": {
+        "total_effective_cycles": 29381,
+        "estimated_hw_time_s": 5.8762e-05,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 1.2399999832268804e-05,
+          "estimated_hw_time_seconds": 2.4896e-05,
+          "effective_time": 2.4896e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 49791,
+            "effective_cycles": 12448,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 49152,
+            "utilization": "98.72%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.1499999800435035e-05,
+          "estimated_hw_time_seconds": 8.512e-06,
+          "effective_time": 8.512e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 17023,
+            "effective_cycles": 4256,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 16384,
+            "utilization": "96.25%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.7999996089201886e-06,
+          "estimated_hw_time_seconds": 8.33e-06,
+          "effective_time": 8.33e-06,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 16658,
+            "effective_cycles": 4165,
+            "parallel_pipes": 4,
+            "pipeline_depth": 275,
+            "stream_length": 16384,
+            "utilization": "98.36%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.0599999768601265e-05,
+          "estimated_hw_time_seconds": 8.512e-06,
+          "effective_time": 8.512e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 17023,
+            "effective_cycles": 4256,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 16384,
+            "utilization": "96.25%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.049999991664663e-05,
+          "estimated_hw_time_seconds": 8.512e-06,
+          "effective_time": 8.512e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 17023,
+            "effective_cycles": 4256,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 16384,
+            "utilization": "96.25%",
+            "num_stages": 128
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 4.069999977218686e-05,
+      "total_effective_time_s": 0.00010788200000000001,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 236.30915259264748,
+      "paradigm_info": {
+        "total_effective_cycles": 53941,
+        "estimated_hw_time_s": 0.000107882,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 6.8999997893115506e-06,
+          "estimated_hw_time_seconds": 2.4736e-05,
+          "effective_time": 2.4736e-05,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 49471,
+            "effective_cycles": 12368,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 49152,
+            "utilization": "99.36%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 6.200000370881753e-06,
+          "estimated_hw_time_seconds": 3.2928e-05,
+          "effective_time": 3.2928e-05,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 65855,
+            "effective_cycles": 16464,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 65536,
+            "utilization": "99.52%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.8000000636675395e-06,
+          "estimated_hw_time_seconds": 3.3034e-05,
+          "effective_time": 3.3034e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 66066,
+            "effective_cycles": 16517,
+            "parallel_pipes": 4,
+            "pipeline_depth": 531,
+            "stream_length": 65536,
+            "utilization": "99.20%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 1.9799999790848233e-05,
+          "estimated_hw_time_seconds": 8.832e-06,
+          "effective_time": 8.832e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 17663,
+            "effective_cycles": 4416,
+            "parallel_pipes": 4,
+            "pipeline_depth": 1280,
+            "stream_length": 16384,
+            "utilization": "92.76%",
+            "num_stages": 256
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 5.999999757477781e-06,
+          "estimated_hw_time_seconds": 8.352e-06,
+          "effective_time": 8.352e-06,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 16703,
+            "effective_cycles": 4176,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 16384,
+            "utilization": "98.09%",
+            "num_stages": 64
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.0001167000004898,
+      "total_effective_time_s": 0.00014932200000000002,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 451.6182746011974,
+      "paradigm_info": {
+        "total_effective_cycles": 74661,
+        "estimated_hw_time_s": 0.000149322,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 2.3399999918183312e-05,
+          "estimated_hw_time_seconds": 4.9472e-05,
+          "effective_time": 4.9472e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 98943,
+            "effective_cycles": 24736,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 98304,
+            "utilization": "99.35%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 2.3300000066228677e-05,
+          "estimated_hw_time_seconds": 3.3088e-05,
+          "effective_time": 3.3088e-05,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 66175,
+            "effective_cycles": 16544,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 65536,
+            "utilization": "99.03%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 3.200000264769187e-06,
+          "estimated_hw_time_seconds": 3.3034e-05,
+          "effective_time": 3.3034e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 66066,
+            "effective_cycles": 16517,
+            "parallel_pipes": 4,
+            "pipeline_depth": 531,
+            "stream_length": 65536,
+            "utilization": "99.20%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 4.369999987829942e-05,
+          "estimated_hw_time_seconds": 1.7024e-05,
+          "effective_time": 1.7024e-05,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 34047,
+            "effective_cycles": 8512,
+            "parallel_pipes": 4,
+            "pipeline_depth": 1280,
+            "stream_length": 32768,
+            "utilization": "96.24%",
+            "num_stages": 256
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 2.3100000362319406e-05,
+          "estimated_hw_time_seconds": 1.6704e-05,
+          "effective_time": 1.6704e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 33407,
+            "effective_cycles": 8352,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 32768,
+            "utilization": "98.09%",
+            "num_stages": 128
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.00012659999993047677,
+      "total_effective_time_s": 0.000346346,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 245.98753847308762,
+      "paradigm_info": {
+        "total_effective_cycles": 173173,
+        "estimated_hw_time_s": 0.000346346,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 1.3800000033370452e-05,
+          "estimated_hw_time_seconds": 4.9312e-05,
+          "effective_time": 4.9312e-05,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 98623,
+            "effective_cycles": 24656,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 98304,
+            "utilization": "99.68%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 1.2799999694834696e-05,
+          "estimated_hw_time_seconds": 0.000131232,
+          "effective_time": 0.000131232,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 262463,
+            "effective_cycles": 65616,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 262144,
+            "utilization": "99.88%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 3.099999958067201e-06,
+          "estimated_hw_time_seconds": 0.000131594,
+          "effective_time": 0.000131594,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 263186,
+            "effective_cycles": 65797,
+            "parallel_pipes": 4,
+            "pipeline_depth": 1043,
+            "stream_length": 262144,
+            "utilization": "99.60%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 8.419999994657701e-05,
+          "estimated_hw_time_seconds": 1.7664e-05,
+          "effective_time": 1.7664e-05,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 35327,
+            "effective_cycles": 8832,
+            "parallel_pipes": 4,
+            "pipeline_depth": 2560,
+            "stream_length": 32768,
+            "utilization": "92.76%",
+            "num_stages": 512
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 1.2700000297627412e-05,
+          "estimated_hw_time_seconds": 1.6544e-05,
+          "effective_time": 1.6544e-05,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 33087,
+            "effective_cycles": 8272,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 32768,
+            "utilization": "99.04%",
+            "num_stages": 64
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.00011309999990771757,
+      "total_effective_time_s": 0.000428746,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 472.6278775778666,
+      "paradigm_info": {
+        "total_effective_cycles": 214373,
+        "estimated_hw_time_s": 0.000428746,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 4.560000024866895e-05,
+          "estimated_hw_time_seconds": 9.8624e-05,
+          "effective_time": 9.8624e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 197247,
+            "effective_cycles": 49312,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 196608,
+            "utilization": "99.68%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 1.4400000054592965e-05,
+          "estimated_hw_time_seconds": 0.000131392,
+          "effective_time": 0.000131392,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 262783,
+            "effective_cycles": 65696,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 262144,
+            "utilization": "99.76%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 1.99999976757681e-06,
+          "estimated_hw_time_seconds": 0.000131594,
+          "effective_time": 0.000131594,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 263186,
+            "effective_cycles": 65797,
+            "parallel_pipes": 4,
+            "pipeline_depth": 1043,
+            "stream_length": 262144,
+            "utilization": "99.60%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 4.0299999909620965e-05,
+          "estimated_hw_time_seconds": 3.4048e-05,
+          "effective_time": 3.4048e-05,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 68095,
+            "effective_cycles": 17024,
+            "parallel_pipes": 4,
+            "pipeline_depth": 2560,
+            "stream_length": 65536,
+            "utilization": "96.24%",
+            "num_stages": 512
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 1.0799999927257886e-05,
+          "estimated_hw_time_seconds": 3.3088e-05,
+          "effective_time": 3.3088e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 66175,
+            "effective_cycles": 16544,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 65536,
+            "utilization": "99.03%",
+            "num_stages": 128
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 9.929999987434712e-05,
+      "total_effective_time_s": 0.00121649,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 252.55675591250238,
+      "paradigm_info": {
+        "total_effective_cycles": 608245,
+        "estimated_hw_time_s": 0.00121649,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 7.000000096013537e-06,
+          "estimated_hw_time_seconds": 9.8464e-05,
+          "effective_time": 9.8464e-05,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 196927,
+            "effective_cycles": 49232,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 196608,
+            "utilization": "99.84%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 6.599999778700294e-06,
+          "estimated_hw_time_seconds": 0.000524448,
+          "effective_time": 0.000524448,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 1048895,
+            "effective_cycles": 262224,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 1048576,
+            "utilization": "99.97%",
+            "num_stages": 64
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 1.8000000636675395e-06,
+          "estimated_hw_time_seconds": 0.000525322,
+          "effective_time": 0.000525322,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 1050642,
+            "effective_cycles": 262661,
+            "parallel_pipes": 4,
+            "pipeline_depth": 2067,
+            "stream_length": 1048576,
+            "utilization": "99.80%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 7.760000016787671e-05,
+          "estimated_hw_time_seconds": 3.5328e-05,
+          "effective_time": 3.5328e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 70655,
+            "effective_cycles": 17664,
+            "parallel_pipes": 4,
+            "pipeline_depth": 5120,
+            "stream_length": 65536,
+            "utilization": "92.75%",
+            "num_stages": 1024
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 6.299999768089037e-06,
+          "estimated_hw_time_seconds": 3.2928e-05,
+          "effective_time": 3.2928e-05,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 65855,
+            "effective_cycles": 16464,
+            "parallel_pipes": 4,
+            "pipeline_depth": 320,
+            "stream_length": 65536,
+            "utilization": "99.52%",
+            "num_stages": 64
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "Dataflow (Maxeler-style)",
+      "paradigm_short": "dataflow",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.000147800000377174,
+      "total_effective_time_s": 0.0013808100000000001,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 489.8078084602515,
+      "paradigm_info": {
+        "total_effective_cycles": 690405,
+        "estimated_hw_time_s": 0.00138081,
+        "clock_hz": 500000000.0,
+        "parallel_pipes": 4,
+        "execution_model": "streaming pipeline, no instruction fetch"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 1.8999999610969098e-05,
+          "estimated_hw_time_seconds": 0.000196928,
+          "effective_time": 0.000196928,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 393855,
+            "effective_cycles": 98464,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 393216,
+            "utilization": "99.84%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 1.6200000118260505e-05,
+          "estimated_hw_time_seconds": 0.000524608,
+          "effective_time": 0.000524608,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 1049215,
+            "effective_cycles": 262304,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 1048576,
+            "utilization": "99.94%",
+            "num_stages": 128
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 2.600000243546674e-06,
+          "estimated_hw_time_seconds": 0.000525322,
+          "effective_time": 0.000525322,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 1050642,
+            "effective_cycles": 262661,
+            "parallel_pipes": 4,
+            "pipeline_depth": 2067,
+            "stream_length": 1048576,
+            "utilization": "99.80%",
+            "num_stages": 5
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 9.730000010677031e-05,
+          "estimated_hw_time_seconds": 6.8096e-05,
+          "effective_time": 6.8096e-05,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 136191,
+            "effective_cycles": 34048,
+            "parallel_pipes": 4,
+            "pipeline_depth": 5120,
+            "stream_length": 131072,
+            "utilization": "96.24%",
+            "num_stages": 1024
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 1.2700000297627412e-05,
+          "estimated_hw_time_seconds": 6.5856e-05,
+          "effective_time": 6.5856e-05,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "raw_pipeline_cycles": 131711,
+            "effective_cycles": 32928,
+            "parallel_pipes": 4,
+            "pipeline_depth": 640,
+            "stream_length": 131072,
+            "utilization": "99.51%",
+            "num_stages": 128
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 0.0022410999999920023,
+      "total_effective_time_s": 3.7314285714285715e-06,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 2270.049617151608,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 2612,
+        "estimated_hw_time_s": 3.7314285714285715e-06,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 0.0007836999998289684,
+          "estimated_hw_time_seconds": 1.3628571428571428e-06,
+          "effective_time": 1.3628571428571428e-06,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "systolic_cycles": 954,
+            "tiles": 3,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00047070000027815695,
+          "estimated_hw_time_seconds": 4.5428571428571426e-07,
+          "effective_time": 4.5428571428571426e-07,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "systolic_cycles": 318,
+            "pe_utilization": "100.00%",
+            "time_utilization": "20.13%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0002546999999140098,
+          "estimated_hw_time_seconds": 9.142857142857143e-07,
+          "effective_time": 9.142857142857143e-07,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 640
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.0004413000001477485,
+          "estimated_hw_time_seconds": 5.457142857142857e-07,
+          "effective_time": 5.457142857142857e-07,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "systolic_cycles": 382,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.00029069999982311856,
+          "estimated_hw_time_seconds": 4.5428571428571426e-07,
+          "effective_time": 4.5428571428571426e-07,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "systolic_cycles": 318,
+            "pe_utilization": "50.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 0.0048156000002563815,
+      "total_effective_time_s": 4.188571428571429e-06,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 6027.769713506139,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 2932,
+        "estimated_hw_time_s": 4.188571428571429e-06,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.0022414000000026135,
+          "estimated_hw_time_seconds": 1.637142857142857e-06,
+          "effective_time": 1.637142857142857e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "systolic_cycles": 1146,
+            "tiles": 3,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0006057000000510016,
+          "estimated_hw_time_seconds": 5.457142857142857e-07,
+          "effective_time": 5.457142857142857e-07,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "systolic_cycles": 382,
+            "pe_utilization": "100.00%",
+            "time_utilization": "33.51%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0002129999998032872,
+          "estimated_hw_time_seconds": 9.142857142857143e-07,
+          "effective_time": 9.142857142857143e-07,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 640
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0009140000001934823,
+          "estimated_hw_time_seconds": 5.457142857142857e-07,
+          "effective_time": 5.457142857142857e-07,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "systolic_cycles": 382,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0008415000002059969,
+          "estimated_hw_time_seconds": 5.457142857142857e-07,
+          "effective_time": 5.457142857142857e-07,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "systolic_cycles": 382,
+            "pe_utilization": "100.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 0.0059132000001227425,
+      "total_effective_time_s": 1.0565714285714285e-05,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 2412.8519199567336,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 7396,
+        "estimated_hw_time_s": 1.0565714285714285e-05,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.00142809999988458,
+          "estimated_hw_time_seconds": 2.7257142857142856e-06,
+          "effective_time": 2.7257142857142856e-06,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "systolic_cycles": 1908,
+            "tiles": 6,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0018496000002414803,
+          "estimated_hw_time_seconds": 1.817142857142857e-06,
+          "effective_time": 1.817142857142857e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "systolic_cycles": 1272,
+            "pe_utilization": "100.00%",
+            "time_utilization": "20.13%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.000794300000052317,
+          "estimated_hw_time_seconds": 3.6571428571428572e-06,
+          "effective_time": 3.6571428571428572e-06,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 2560
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0012615000000550936,
+          "estimated_hw_time_seconds": 1.4571428571428571e-06,
+          "effective_time": 1.4571428571428571e-06,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "systolic_cycles": 1020,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0005796999998892716,
+          "estimated_hw_time_seconds": 9.085714285714285e-07,
+          "effective_time": 9.085714285714285e-07,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "systolic_cycles": 636,
+            "pe_utilization": "50.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.01099099999964892,
+      "total_effective_time_s": 1.1662857142857143e-05,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 5782.1632533072025,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 8164,
+        "estimated_hw_time_s": 1.1662857142857143e-05,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.003753099999812548,
+          "estimated_hw_time_seconds": 3.274285714285714e-06,
+          "effective_time": 3.274285714285714e-06,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "systolic_cycles": 2292,
+            "tiles": 6,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.002344200000152341,
+          "estimated_hw_time_seconds": 2.1828571428571428e-06,
+          "effective_time": 2.1828571428571428e-06,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "systolic_cycles": 1528,
+            "pe_utilization": "100.00%",
+            "time_utilization": "33.51%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0008014999998522399,
+          "estimated_hw_time_seconds": 3.6571428571428572e-06,
+          "effective_time": 3.6571428571428572e-06,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 2560
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0024132999997164006,
+          "estimated_hw_time_seconds": 1.4571428571428571e-06,
+          "effective_time": 1.4571428571428571e-06,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "systolic_cycles": 1020,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0016789000001153909,
+          "estimated_hw_time_seconds": 1.0914285714285714e-06,
+          "effective_time": 1.0914285714285714e-06,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "systolic_cycles": 764,
+            "pe_utilization": "100.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.022103900000274734,
+      "total_effective_time_s": 3.3542857142857144e-05,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 2539.93867120954,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 23480,
+        "estimated_hw_time_s": 3.3542857142857144e-05,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.002865799999653973,
+          "estimated_hw_time_seconds": 5.451428571428571e-06,
+          "effective_time": 5.451428571428571e-06,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "systolic_cycles": 3816,
+            "tiles": 12,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.008573399999932008,
+          "estimated_hw_time_seconds": 7.268571428571428e-06,
+          "effective_time": 7.268571428571428e-06,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "systolic_cycles": 5088,
+            "pe_utilization": "100.00%",
+            "time_utilization": "20.13%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.004992200000287994,
+          "estimated_hw_time_seconds": 1.4628571428571429e-05,
+          "effective_time": 1.4628571428571429e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 10240
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.00450090000003911,
+          "estimated_hw_time_seconds": 4.377142857142857e-06,
+          "effective_time": 4.377142857142857e-06,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "systolic_cycles": 3064,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.00117160000036165,
+          "estimated_hw_time_seconds": 1.817142857142857e-06,
+          "effective_time": 1.817142857142857e-06,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "systolic_cycles": 1272,
+            "pe_utilization": "50.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.03542239999978847,
+      "total_effective_time_s": 3.646857142857143e-05,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 5556.491632717017,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 25528,
+        "estimated_hw_time_s": 3.646857142857143e-05,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.007495199999993929,
+          "estimated_hw_time_seconds": 6.548571428571428e-06,
+          "effective_time": 6.548571428571428e-06,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "systolic_cycles": 4584,
+            "tiles": 12,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.011015199999746983,
+          "estimated_hw_time_seconds": 8.731428571428571e-06,
+          "effective_time": 8.731428571428571e-06,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "systolic_cycles": 6112,
+            "pe_utilization": "100.00%",
+            "time_utilization": "33.51%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.004804199999853154,
+          "estimated_hw_time_seconds": 1.4628571428571429e-05,
+          "effective_time": 1.4628571428571429e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 10240
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.008510400000432128,
+          "estimated_hw_time_seconds": 4.377142857142857e-06,
+          "effective_time": 4.377142857142857e-06,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "systolic_cycles": 3064,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.003597399999762274,
+          "estimated_hw_time_seconds": 2.1828571428571428e-06,
+          "effective_time": 2.1828571428571428e-06,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "systolic_cycles": 1528,
+            "pe_utilization": "100.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 0.08259070000076463,
+      "total_effective_time_s": 0.00011673142857142857,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 2631.962717838261,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 81712,
+        "estimated_hw_time_s": 0.00011673142857142857,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.005892800000310672,
+          "estimated_hw_time_seconds": 1.0902857142857142e-05,
+          "effective_time": 1.0902857142857142e-05,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "systolic_cycles": 7632,
+            "tiles": 24,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.03761250000025029,
+          "estimated_hw_time_seconds": 2.9074285714285713e-05,
+          "effective_time": 2.9074285714285713e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "systolic_cycles": 20352,
+            "pe_utilization": "100.00%",
+            "time_utilization": "20.13%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.0198393999999098,
+          "estimated_hw_time_seconds": 5.8514285714285716e-05,
+          "effective_time": 5.8514285714285716e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 40960
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.016578100000060658,
+          "estimated_hw_time_seconds": 1.4605714285714286e-05,
+          "effective_time": 1.4605714285714286e-05,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "systolic_cycles": 10224,
+            "pe_utilization": "50.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.002667900000233203,
+          "estimated_hw_time_seconds": 3.634285714285714e-06,
+          "effective_time": 3.634285714285714e-06,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "systolic_cycles": 2544,
+            "pe_utilization": "50.00%"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "TPU (Systolic Array)",
+      "paradigm_short": "tpu_systolic",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.17193410000027143,
+      "total_effective_time_s": 0.00012550857142857143,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 5388.727736295757,
+      "paradigm_info": {
+        "execution_mode": "simulation",
+        "array_size": "128x128",
+        "total_systolic_cycles": 87856,
+        "estimated_hw_time_s": 0.00012550857142857143,
+        "clock_hz": 700000000.0,
+        "peak_ops_per_cycle": 32768,
+        "vector_width": 128,
+        "execution_model": "weight-stationary systolic array"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 0.0246793000001162,
+          "estimated_hw_time_seconds": 1.3097142857142857e-05,
+          "effective_time": 1.3097142857142857e-05,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "systolic_cycles": 9168,
+            "tiles": 24,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.08320830000002388,
+          "estimated_hw_time_seconds": 3.4925714285714284e-05,
+          "effective_time": 3.4925714285714284e-05,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "systolic_cycles": 24448,
+            "pe_utilization": "100.00%",
+            "time_utilization": "33.51%"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.02319279999983337,
+          "estimated_hw_time_seconds": 5.8514285714285716e-05,
+          "effective_time": 5.8514285714285716e-05,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "note": "vector unit (width=128)",
+            "estimated_cycles": 40960
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.03312510000023394,
+          "estimated_hw_time_seconds": 1.4605714285714286e-05,
+          "effective_time": 1.4605714285714286e-05,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "systolic_cycles": 10224,
+            "pe_utilization": "100.00%"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.007728600000064034,
+          "estimated_hw_time_seconds": 4.3657142857142855e-06,
+          "effective_time": 4.3657142857142855e-06,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "systolic_cycles": 3056,
+            "pe_utilization": "100.00%"
+          }
+        }
+      ]
+    }
+  ]
+}

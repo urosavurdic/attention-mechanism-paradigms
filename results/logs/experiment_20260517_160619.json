@@ -1,0 +1,1111 @@
+{
+  "timestamp": "2026-05-17T16:06:19.553843+00:00",
+  "environment": {
+    "python_version": "3.12.4 (tags/v3.12.4:8e8a4ba, Jun  6 2024, 19:30:16) [MSC v.1940 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "processor": "Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
+    "machine": "AMD64",
+    "numpy_version": "2.4.4",
+    "torch_version": "2.11.0+cpu",
+    "cuda_available": false
+  },
+  "config": {
+    "seq_lens": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "embed_dims": [
+      64,
+      128
+    ],
+    "num_heads": 8,
+    "warmup_runs": 2,
+    "benchmark_runs": 5,
+    "sim_max_seq_len": 32,
+    "sim_max_embed_dim": 16
+  },
+  "results": [
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 0.0007124999997358827,
+      "total_effective_time_s": 0.0007124999997358827,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 11.888460355284138,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 3145728,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 98304,
+          "wall_time_seconds": 0.00019629999997050618,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00019629999997050618,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.291456e-06,
+            "compute_bound_time_s": 6.291456e-06,
+            "memory_bound_time_s": 4.9152e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00014049999981580186,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00014049999981580186,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-06,
+            "compute_bound_time_s": 4.194304e-06,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0002058000000033644,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0002058000000033644,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.62144e-06,
+            "compute_bound_time_s": 1.6384e-07,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 2097152,
+          "memory_reads_bytes": 98304,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 0.00010380000003351597,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00010380000003351597,
+          "arithmetic_intensity": 16.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-06,
+            "compute_bound_time_s": 4.194304e-06,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 1048576,
+          "memory_reads_bytes": 49152,
+          "memory_writes_bytes": 32768,
+          "wall_time_seconds": 6.609999991269433e-05,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 6.609999991269433e-05,
+          "arithmetic_intensity": 12.8,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.097152e-06,
+            "compute_bound_time_s": 2.097152e-06,
+            "memory_bound_time_s": 1.6384e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 0.0012465999998312327,
+      "total_effective_time_s": 0.0012465999998312327,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 20.25328413558326,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.0004752999998345331,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0004752999998345331,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.5165824e-05,
+            "compute_bound_time_s": 2.5165824e-05,
+            "memory_bound_time_s": 1.179648e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00018739999995887047,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00018739999995887047,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 3.93216e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 81920,
+          "memory_reads_bytes": 65536,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0002380000000812288,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0002380000000812288,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.62144e-06,
+            "compute_bound_time_s": 1.6384e-07,
+            "memory_bound_time_s": 2.62144e-06,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00015979999989212956,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00015979999989212956,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 3.93216e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.0001861000000644708,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0001861000000644708,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 3.93216e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 0.0018813000001500768,
+      "total_effective_time_s": 0.0018813000001500768,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 13.551004091833471,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 6291456,
+          "memory_reads_bytes": 245760,
+          "memory_writes_bytes": 196608,
+          "wall_time_seconds": 0.0003941999998460233,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0003941999998460233,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.2582912e-05,
+            "compute_bound_time_s": 1.2582912e-05,
+            "memory_bound_time_s": 8.84736e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 131072,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00038640000002487795,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00038640000002487795,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 7.86432e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0007048000002214394,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0007048000002214394,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.048576e-05,
+            "compute_bound_time_s": 6.5536e-07,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 8388608,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00025910000022122404,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00025910000022122404,
+          "arithmetic_intensity": 21.333333333333332,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 7.86432e-06,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 2097152,
+          "memory_reads_bytes": 81920,
+          "memory_writes_bytes": 65536,
+          "wall_time_seconds": 0.00013679999983651214,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00013679999983651214,
+          "arithmetic_intensity": 14.222222222222221,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-06,
+            "compute_bound_time_s": 4.194304e-06,
+            "memory_bound_time_s": 2.94912e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.00270680000039647,
+      "total_effective_time_s": 0.00270680000039647,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 24.913752028270448,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.0007149000002755201,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0007149000002755201,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 5.0331648e-05,
+            "compute_bound_time_s": 5.0331648e-05,
+            "memory_bound_time_s": 1.96608e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0004918999998153595,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0004918999998153595,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 3.3554432e-05,
+            "compute_bound_time_s": 3.3554432e-05,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 327680,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.0008043000002544431,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0008043000002544431,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.048576e-05,
+            "compute_bound_time_s": 6.5536e-07,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 16777216,
+          "memory_reads_bytes": 393216,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0004392000000734697,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0004392000000734697,
+          "arithmetic_intensity": 32.0,
+          "paradigm_specific": {
+            "roofline_estimate_s": 3.3554432e-05,
+            "compute_bound_time_s": 3.3554432e-05,
+            "memory_bound_time_s": 1.048576e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 196608,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.00025649999997767736,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00025649999997767736,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 6.5536e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.014151400000173453,
+      "total_effective_time_s": 0.014151400000173453,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 6.020379609010822,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 12582912,
+          "memory_reads_bytes": 442368,
+          "memory_writes_bytes": 393216,
+          "wall_time_seconds": 0.0011302000002615387,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0011302000002615387,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "roofline_estimate_s": 2.5165824e-05,
+            "compute_bound_time_s": 2.5165824e-05,
+            "memory_bound_time_s": 1.671168e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 262144,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.005860799999936717,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.005860799999936717,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.7108864e-05,
+            "compute_bound_time_s": 6.7108864e-05,
+            "memory_bound_time_s": 2.62144e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.005983099999866681,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.005983099999866681,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-05,
+            "compute_bound_time_s": 2.62144e-06,
+            "memory_bound_time_s": 4.194304e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 33554432,
+          "memory_reads_bytes": 1179648,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.0009675000001152512,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0009675000001152512,
+          "arithmetic_intensity": 25.6,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.7108864e-05,
+            "compute_bound_time_s": 6.7108864e-05,
+            "memory_bound_time_s": 2.62144e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 4194304,
+          "memory_reads_bytes": 147456,
+          "memory_writes_bytes": 131072,
+          "wall_time_seconds": 0.00020979999999326537,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00020979999999326537,
+          "arithmetic_intensity": 15.058823529411764,
+          "paradigm_specific": {
+            "roofline_estimate_s": 8.388608e-06,
+            "compute_bound_time_s": 8.388608e-06,
+            "memory_bound_time_s": 5.57056e-06,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.014970100000027742,
+      "total_effective_time_s": 0.014970100000027742,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 13.536136164729994,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 50331648,
+          "memory_reads_bytes": 983040,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.0013435999999273918,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0013435999999273918,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000100663296,
+            "compute_bound_time_s": 0.000100663296,
+            "memory_bound_time_s": 3.538944e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.003186699999787379,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.003186699999787379,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000134217728,
+            "compute_bound_time_s": 0.000134217728,
+            "memory_bound_time_s": 3.145728e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 1310720,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 1048576,
+          "wall_time_seconds": 0.008538699999917299,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.008538699999917299,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 4.194304e-05,
+            "compute_bound_time_s": 2.62144e-06,
+            "memory_bound_time_s": 4.194304e-05,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 67108864,
+          "memory_reads_bytes": 1310720,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.001510100000359671,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.001510100000359671,
+          "arithmetic_intensity": 42.666666666666664,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000134217728,
+            "compute_bound_time_s": 0.000134217728,
+            "memory_bound_time_s": 3.145728e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 16777216,
+          "memory_reads_bytes": 327680,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.00039100000003600144,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00039100000003600144,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 3.3554432e-05,
+            "compute_bound_time_s": 3.3554432e-05,
+            "memory_bound_time_s": 1.179648e-05,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 0.04587469999978566,
+      "total_effective_time_s": 0.04587469999978566,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 6.697215851034131,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 25165824,
+          "memory_reads_bytes": 835584,
+          "memory_writes_bytes": 786432,
+          "wall_time_seconds": 0.000887700000021141,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.000887700000021141,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "roofline_estimate_s": 5.0331648e-05,
+            "compute_bound_time_s": 5.0331648e-05,
+            "memory_bound_time_s": 3.244032e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 524288,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.01372250000031272,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.01372250000031272,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000268435456,
+            "compute_bound_time_s": 0.000268435456,
+            "memory_bound_time_s": 9.437184e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.023307999999815365,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.023307999999815365,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.00016777216,
+            "compute_bound_time_s": 1.048576e-05,
+            "memory_bound_time_s": 0.00016777216,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 134217728,
+          "memory_reads_bytes": 4456448,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.007251699999869743,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.007251699999869743,
+          "arithmetic_intensity": 28.444444444444443,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000268435456,
+            "compute_bound_time_s": 0.000268435456,
+            "memory_bound_time_s": 9.437184e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 8388608,
+          "memory_reads_bytes": 278528,
+          "memory_writes_bytes": 262144,
+          "wall_time_seconds": 0.000704799999766692,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.000704799999766692,
+          "arithmetic_intensity": 15.515151515151516,
+          "paradigm_specific": {
+            "roofline_estimate_s": 1.6777216e-05,
+            "compute_bound_time_s": 1.6777216e-05,
+            "memory_bound_time_s": 1.081344e-05,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Control Flow)",
+      "paradigm_short": "cpu",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.05992800000012721,
+      "total_effective_time_s": 0.05992800000012721,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 11.285734881834273,
+      "paradigm_info": {
+        "execution_mode": "real_cpu",
+        "cpu_model": "Intel i7 AVX2 (estimated)",
+        "peak_tflops_fp32": 0.5,
+        "memory_bw_gb_s": 50.0,
+        "cpu_count": 4,
+        "numpy_version": "2.4.4"
+      },
+      "steps": [
+        {
+          "name": "qkv_projection",
+          "flops": 100663296,
+          "memory_reads_bytes": 1769472,
+          "memory_writes_bytes": 1572864,
+          "wall_time_seconds": 0.004995400000098016,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.004995400000098016,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000201326592,
+            "compute_bound_time_s": 0.000201326592,
+            "memory_bound_time_s": 6.684672e-05,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "qk_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.018791200000123354,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.018791200000123354,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000536870912,
+            "compute_bound_time_s": 0.000536870912,
+            "memory_bound_time_s": 0.0001048576,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "softmax",
+          "flops": 5242880,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 4194304,
+          "wall_time_seconds": 0.024300200000197947,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.024300200000197947,
+          "arithmetic_intensity": 0.625,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.00016777216,
+            "compute_bound_time_s": 1.048576e-05,
+            "memory_bound_time_s": 0.00016777216,
+            "bottleneck": "memory"
+          }
+        },
+        {
+          "name": "av_matmul",
+          "flops": 268435456,
+          "memory_reads_bytes": 4718592,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.009552699999858305,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.009552699999858305,
+          "arithmetic_intensity": 51.2,
+          "paradigm_specific": {
+            "roofline_estimate_s": 0.000536870912,
+            "compute_bound_time_s": 0.000536870912,
+            "memory_bound_time_s": 0.0001048576,
+            "bottleneck": "compute"
+          }
+        },
+        {
+          "name": "output_projection",
+          "flops": 33554432,
+          "memory_reads_bytes": 589824,
+          "memory_writes_bytes": 524288,
+          "wall_time_seconds": 0.0022884999998495914,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0022884999998495914,
+          "arithmetic_intensity": 30.11764705882353,
+          "paradigm_specific": {
+            "roofline_estimate_s": 6.7108864e-05,
+            "compute_bound_time_s": 6.7108864e-05,
+            "memory_bound_time_s": 2.228224e-05,
+            "bottleneck": "compute"
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 128,
+      "embed_dim": 64,
+      "total_flops": 8470528,
+      "total_wall_time_s": 0.0012667000000874395,
+      "total_effective_time_s": 0.0012667000000874395,
+      "total_memory_bytes": 720896,
+      "arithmetic_intensity": 11.75,
+      "throughput_gflops": 6.687082971039144,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 8470528,
+          "memory_reads_bytes": 425984,
+          "memory_writes_bytes": 294912,
+          "wall_time_seconds": 0.0012667000000874395,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0012667000000874395,
+          "arithmetic_intensity": 11.75,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 128,
+      "embed_dim": 128,
+      "total_flops": 25247744,
+      "total_wall_time_s": 0.0008361000000149943,
+      "total_effective_time_s": 0.0008361000000149943,
+      "total_memory_bytes": 1310720,
+      "arithmetic_intensity": 19.2625,
+      "throughput_gflops": 30.19703863120107,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 25247744,
+          "memory_reads_bytes": 851968,
+          "memory_writes_bytes": 458752,
+          "wall_time_seconds": 0.0008361000000149943,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0008361000000149943,
+          "arithmetic_intensity": 19.2625,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 256,
+      "embed_dim": 64,
+      "total_flops": 25493504,
+      "total_wall_time_s": 0.0017434000001230743,
+      "total_effective_time_s": 0.0017434000001230743,
+      "total_memory_bytes": 1900544,
+      "arithmetic_intensity": 13.413793103448276,
+      "throughput_gflops": 14.62286566376064,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 25493504,
+          "memory_reads_bytes": 1048576,
+          "memory_writes_bytes": 851968,
+          "wall_time_seconds": 0.0017434000001230743,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.0017434000001230743,
+          "arithmetic_intensity": 13.413793103448276,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 256,
+      "embed_dim": 128,
+      "total_flops": 67436544,
+      "total_wall_time_s": 0.002314300000307412,
+      "total_effective_time_s": 0.002314300000307412,
+      "total_memory_bytes": 2883584,
+      "arithmetic_intensity": 23.386363636363637,
+      "throughput_gflops": 29.139067532749557,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 67436544,
+          "memory_reads_bytes": 1703936,
+          "memory_writes_bytes": 1179648,
+          "wall_time_seconds": 0.002314300000307412,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.002314300000307412,
+          "arithmetic_intensity": 23.386363636363637,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 512,
+      "embed_dim": 64,
+      "total_flops": 85196800,
+      "total_wall_time_s": 0.011563000000023749,
+      "total_effective_time_s": 0.011563000000023749,
+      "total_memory_bytes": 5832704,
+      "arithmetic_intensity": 14.606741573033707,
+      "throughput_gflops": 7.368053273356829,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 85196800,
+          "memory_reads_bytes": 3080192,
+          "memory_writes_bytes": 2752512,
+          "wall_time_seconds": 0.011563000000023749,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.011563000000023749,
+          "arithmetic_intensity": 14.606741573033707,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 512,
+      "embed_dim": 128,
+      "total_flops": 202637312,
+      "total_wall_time_s": 0.00856549999980416,
+      "total_effective_time_s": 0.00856549999980416,
+      "total_memory_bytes": 7602176,
+      "arithmetic_intensity": 26.655172413793103,
+      "throughput_gflops": 23.65738275694741,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 202637312,
+          "memory_reads_bytes": 4194304,
+          "memory_writes_bytes": 3407872,
+          "wall_time_seconds": 0.00856549999980416,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.00856549999980416,
+          "arithmetic_intensity": 26.655172413793103,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 1024,
+      "embed_dim": 64,
+      "total_flops": 307232768,
+      "total_wall_time_s": 0.04059800000004543,
+      "total_effective_time_s": 0.04059800000004543,
+      "total_memory_bytes": 19988480,
+      "arithmetic_intensity": 15.37049180327869,
+      "throughput_gflops": 7.567682348875714,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 307232768,
+          "memory_reads_bytes": 10289152,
+          "memory_writes_bytes": 9699328,
+          "wall_time_seconds": 0.04059800000004543,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.04059800000004543,
+          "arithmetic_intensity": 15.37049180327869,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    },
+    {
+      "paradigm_name": "CPU (Fused SDPA)",
+      "paradigm_short": "cpu_fused",
+      "seq_len": 1024,
+      "embed_dim": 128,
+      "total_flops": 676331520,
+      "total_wall_time_s": 0.05926150000004782,
+      "total_effective_time_s": 0.05926150000004782,
+      "total_memory_bytes": 23330816,
+      "arithmetic_intensity": 28.98876404494382,
+      "throughput_gflops": 11.412662858676446,
+      "paradigm_info": {
+        "execution_mode": "real_cpu_fused",
+        "backend": "torch.nn.functional.scaled_dot_product_attention",
+        "num_heads": 8,
+        "torch_version": "2.11.0+cpu"
+      },
+      "steps": [
+        {
+          "name": "fused_attention",
+          "flops": 676331520,
+          "memory_reads_bytes": 12320768,
+          "memory_writes_bytes": 11010048,
+          "wall_time_seconds": 0.05926150000004782,
+          "estimated_hw_time_seconds": 0,
+          "effective_time": 0.05926150000004782,
+          "arithmetic_intensity": 28.98876404494382,
+          "paradigm_specific": {
+            "num_heads": 8
+          }
+        }
+      ]
+    }
+  ]
+}
