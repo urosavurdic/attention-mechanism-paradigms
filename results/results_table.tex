@@ -1,0 +1,24 @@
+\begin{table}[h]
+\centering
+\caption{Attention execution across paradigms (n=2048, d=256). `Measured' denotes a timed run on hardware; `Model' an analytical estimate.}
+\begin{tabular}{lrrrl}
+\hline
+Paradigm & Time (s) & GFLOP/s & AI & Source \\
+\hline
+tpu\_fused & 0.000342 & 15,771.71 & 57.75 & Measured \\
+gpu\_fp16 & 0.000476 & 11,326.67 & 115.51 & Measured \\
+gpu\_fused\_fp16 & 0.000560 & 9,632.69 & 115.51 & Measured \\
+tpu\_systolic & 0.001098 & 4,908.19 & 57.75 & Measured \\
+dataflow & 0.005514 & 977.43 & 57.75 & Model \\
+optical & 0.010572 & 509.82 & 57.75 & Model \\
+gpu & 0.027072 & 199.09 & 57.75 & Measured \\
+gpu\_fused & 0.051718 & 104.21 & 57.75 & Measured \\
+cpu & 0.297194 & 18.14 & 57.75 & Measured \\
+cpu\_fused & 0.303687 & 17.75 & 57.75 & Measured \\
+gaas\_riscv & 35.103179 & 0.15 & 57.75 & Model \\
+iot\_edge & 49.207345 & 0.11 & 57.75 & Model \\
+wsn & 404.217320 & 0.01 & 57.75 & Model \\
+cdte\_turing & 7553.941504 & 0.00071 & 57.75 & Model \\
+\hline
+\end{tabular}
+\end{table}
