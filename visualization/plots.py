@@ -21,7 +21,8 @@ COLORS = ["#2196F3", "#4CAF50", "#FF9800", "#9C27B0", "#F44336", "#00BCD4",
 
 
 def _save(fig, name: str):
-    path = os.path.join(config.RESULTS_DIR, f"{name}.png")
+    os.makedirs(config.SWEEP_DIR, exist_ok=True)
+    path = os.path.join(config.SWEEP_DIR, f"{name}.png")
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
     print(f"  Saved {path}")
@@ -157,7 +158,7 @@ def plot_arithmetic_intensity(df: pd.DataFrame):
 
 def generate_all_plots(df: pd.DataFrame):
     """Generate all plots from results DataFrame."""
-    os.makedirs(config.RESULTS_DIR, exist_ok=True)
+    os.makedirs(config.SWEEP_DIR, exist_ok=True)
     print("Generating plots...")
     plot_paradigm_comparison(df)
     plot_scaling_curves(df)

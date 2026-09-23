@@ -121,6 +121,11 @@ python run_all.py sim        # simulators only, no accelerator needed
 python run_all.py            # everything available on this machine
 ```
 
+A sweep writes to `results/sweep/` and leaves the published artefacts alone. It
+only sees the machine it runs on, so on a laptop it would replace measured GPU
+and TPU rows with that laptop's modelled fallbacks -- which is the failure this
+repository already had once, described under Errata.
+
 Then rebuild the derived artefacts:
 
 ```bash

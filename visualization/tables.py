@@ -1,4 +1,11 @@
-"""Table generation for results - Markdown and LaTeX."""
+"""Table generation for a local sweep - Markdown and LaTeX.
+
+These write `sweep_table.*`, not `results_table.*`. The latter is the
+published, cross-session table built by `build_results_table.py`, and a local
+run on one machine must not silently overwrite it -- a CPU-only sweep would
+replace measured GPU and TPU rows with this machine's modelled fallbacks,
+which is exactly the failure this repository already had once.
+"""
 
 import os
 import pandas as pd
@@ -25,7 +32,8 @@ def generate_markdown_table(df: pd.DataFrame) -> str:
 
     md = sub.to_markdown(index=False)
 
-    path = os.path.join(config.RESULTS_DIR, "results_table.md")
+    os.makedirs(config.SWEEP_DIR, exist_ok=True)
+    path = os.path.join(config.SWEEP_DIR, "sweep_table.md")
     with open(path, "w") as f:
         f.write("# Benchmark Results\n\n")
         f.write(md)
@@ -34,7 +42,7 @@ def generate_markdown_table(df: pd.DataFrame) -> str:
 
 
 def generate_latex_table(df: pd.DataFrame) -> str:
-    """Generate a LaTeX table for the paper."""
+    """Generate a LaTeX table."""
     # Summary: one row per paradigm at max config
     max_seq = df["seq_len"].max()
     max_dim = df["embed_dim"].max()
@@ -67,7 +75,8 @@ def generate_latex_table(df: pd.DataFrame) -> str:
     ])
 
     latex = "\n".join(lines)
-    path = os.path.join(config.RESULTS_DIR, "results_table.tex")
+    os.makedirs(config.SWEEP_DIR, exist_ok=True)
+    path = os.path.join(config.SWEEP_DIR, "sweep_table.tex")
     with open(path, "w") as f:
         f.write(latex)
     print(f"  Saved {path}")

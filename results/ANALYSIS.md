@@ -2,8 +2,8 @@
 
 ## Detailed Implementation & Theory Guide
 
-**Paper**: *Analysis of Attention Mechanisms in the Context of Computational Paradigms*
-**Conference**: 5th Serbian International Conference on Applied Artificial Intelligence (SICAAI), Kragujevac, May 20-21, 2026
+**Talk**: *Analysis of Attention Mechanisms in the Context of Computational Paradigms*
+**Presented at**: Fifth Serbian International Conference on Applied Artificial Intelligence (SICAAI), Kragujevac, 20-21 May 2026. No paper was submitted.
 **Author**: Uroš Savurdić, School of Electrical Engineering, University of Belgrade
 
 ---

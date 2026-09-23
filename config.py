@@ -87,3 +87,9 @@ IOT_DIV_CYCLES = 14
 # Output
 RESULTS_DIR = "results"
 LOG_DIR = "results/logs"
+
+# A local run writes here rather than over the published figures and tables in
+# RESULTS_DIR. Those are built from all sessions by build_results_table.py and
+# generate_figures.py; a sweep on one machine only sees that machine, so it must
+# not overwrite them.
+SWEEP_DIR = "results/sweep"

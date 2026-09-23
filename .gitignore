@@ -10,6 +10,10 @@ __pycache__/
 # literature triage and talk material kept locally
 internal/
 
+# per-machine sweep outputs; the published artefacts are built by
+# build_results_table.py and committed
+results/sweep/
+
 # editors / os
 .vscode/
 .idea/

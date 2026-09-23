@@ -10,7 +10,7 @@ from visualization.tables import generate_all_tables
 
 
 def main():
-    os.makedirs(config.RESULTS_DIR, exist_ok=True)
+    os.makedirs(config.SWEEP_DIR, exist_ok=True)
 
     print("=" * 60)
     print("Attention Mechanism Acceleration - Benchmark Suite")
@@ -50,8 +50,10 @@ def main():
     print()
     generate_all_tables(df)
 
-    print(f"\nAll results saved to {config.RESULTS_DIR}/")
+    print(f"\nSweep output saved to {config.SWEEP_DIR}/")
     print(f"Experiment logs in {config.LOG_DIR}/")
+    print("The published tables and figures in results/ are built separately, by")
+    print("build_results_table.py and generate_figures.py, and are left untouched.")
     print("=" * 60)
 
 
