@@ -1,4 +1,4 @@
-"""Generate the conference report: text with inline figures, as presented."""
+"""Generate the results report: text with inline figures, built from the canonical CSV."""
 
 import os
 from matplotlib.backends.backend_pdf import PdfPages

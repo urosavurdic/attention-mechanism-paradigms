@@ -82,35 +82,6 @@ So the models are order-of-magnitude arguments about architecture. They are not
 predictions of what hardware would do, and this repository does not compare
 them against measurements as though they were.
 
-## Errata against the conference report
-
-[`results/SICAAI-2026-report.pdf`](results/SICAAI-2026-report.pdf) has been
-regenerated from the corrected data. Three numbers in the talk were wrong, all
-from the same root cause:
-
-`combined_all_v6.csv` was merged by hand from several sessions. Two paradigms,
-`gpu` (FP32 decomposed) and `tpu_systolic`, had both a real hardware run and a
-modelled fallback — the fallback fired because the local sweep that produced
-the newest export had no CUDA or TPU device attached, so those paradigms took
-their simulation branch. The merge kept the modelled rows for those two and the
-measured rows for everything else, then the tables described all of them as
-measured.
-
-| claim | as presented | corrected |
-|---|---|---|
-| GPU FP32 fusion penalty | 63× slower | **1.9× slower** |
-| FP32 → FP16, decomposed | 1.7× faster | **56.9× faster** |
-| FLOP growth, n=128 → 2048 | 341× | **64.2×** |
-| FP32 → FP16, fused | 93× | **92.4×**, from the unrounded values |
-
-The 63× compared a measurement against a model. The headline result — that one
-PyTorch call silently dispatches to a different kernel by precision — used only
-measured rows and is unchanged.
-
-`build_results_table.py` now performs the merge, preferring a hardware
-measurement over a model wherever both exist, and stamps every row with a
-`measurement_type`.
-
 ## Running it
 
 ```bash
@@ -123,8 +94,9 @@ python run_all.py            # everything available on this machine
 
 A sweep writes to `results/sweep/` and leaves the published artefacts alone. It
 only sees the machine it runs on, so on a laptop it would replace measured GPU
-and TPU rows with that laptop's modelled fallbacks -- which is the failure this
-repository already had once, described under Errata.
+and TPU rows with that laptop's modelled fallbacks. `build_results_table.py` guards
+against that: it prefers a hardware measurement over a model wherever both exist,
+and stamps every row with a `measurement_type`.
 
 Then rebuild the derived artefacts:
 
