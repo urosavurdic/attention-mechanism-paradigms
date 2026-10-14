@@ -97,8 +97,9 @@ Checked against the literature, every model is optimistic:
 - The DNA model assumes 10 s per cascade layer, whereas demonstrated circuits
   take about two hours per layer.
 
-Every such correction makes the substrate slower, so the ordering of substrates
-is robust and the absolute numbers are bounds, not predictions.
+Every such correction makes the substrate slower. The corrections differ in
+size, so the models suggest broad performance tiers rather than a reliable
+ranking, and the absolute numbers are optimistic estimates, not predictions.
 
 The roofline model is the one case that can be checked against a measurement of
 the same thing. It puts GPU FP32 decomposed at 6,592 GFLOP/s against a measured

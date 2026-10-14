@@ -103,7 +103,7 @@ sections = [
             "  •  TPU (five jits + one jit) — Colab TPU via JAX, float32 (6-pass bf16)\n"
             "  CPU and GPU: one session, PyTorch 2.11.0+cu130, NumPy 2.1.3.\n\n"
             "Analytical cost models (uncalibrated; checked against the literature,\n"
-            "every one is optimistic, so read them as upper bounds):\n"
+            "every one is optimistic, so read them as optimistic estimates):\n"
             "  •  Dataflow (Maxeler-style) — 4 parallel pipes, 500 MHz\n"
             "  •  Optical (photonic MZI mesh) — 64×64 tiles, electronic softmax\n"
             "  •  IoT Edge (ARM Cortex-M4F) — 168 MHz, 3 cycles per FP32 MAC\n"

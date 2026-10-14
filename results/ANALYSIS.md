@@ -191,7 +191,7 @@ The Mathematical Institute of SANU (Serbian Academy of Sciences) has a Maxeler m
 - `paradigm.py`: Correct stream lengths (3·n·d for QKV, n² for QK^T, etc.), divides by parallel_pipes
 
 #### Key Insight
-The model reaches about 490 GFLOP/s at n=1024, d=128 at 500 MHz. Published Maxeler designs ran at 100–180 MHz with up to ~956 floating-point operations per cycle, so the model is an optimistic bound, roughly 5x above what a real engine of that generation would deliver. In the model, the advantages come from:
+The model reaches about 490 GFLOP/s at n=1024, d=128 at 500 MHz. Published Maxeler designs ran at 100–180 MHz with up to ~956 floating-point operations per cycle, so the model is an optimistic estimate, roughly 5x above what a real engine of that generation would deliver. In the model, the advantages come from:
 1. Zero instruction fetch/decode overhead
 2. Guaranteed data delivery (no cache misses)
 3. High utilization in steady state (all pipeline stages active simultaneously)
@@ -547,8 +547,8 @@ optimistic -- GaAs processors of the period were designed for ~200 MHz rather
 than 1 GHz, built photonic engines run at ~1 GHz with weight updates at ~10
 MHz, error-corrected quantum operations take microseconds rather than 50 ns,
 and demonstrated DNA circuits take hours per layer rather than seconds. Every
-correction makes the substrate slower, so the ordering is robust and the
-absolute numbers are bounds. The roofline model is the one case where a
+correction makes the substrate slower; the corrections differ in size, so the models suggest broad tiers rather than a reliable ranking, and the
+absolute numbers are optimistic estimates. The roofline model is the one case where a
 prediction can be checked: it puts GPU FP32 decomposed at 6,592 GFLOP/s
 against a measured 4,002, an upper bound as a roofline should be.
 

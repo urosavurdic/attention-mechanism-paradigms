@@ -175,7 +175,7 @@ precisions it costs far more.
 
 All four figures below are cost models, not measurements, and the last three run
 only at n=32, d=16. Every parameter was checked against the literature and every
-one is optimistic, so these are upper bounds.
+one is optimistic, so these are optimistic estimates, not predictions.
 
 - **Optical (photonic MZI): 510 GFLOP/s.**
   - The optical matrix products take 66 µs in the model.
@@ -210,6 +210,10 @@ algebra followed by a nonlinearity.
 - **WSN (64 wireless nodes): 0.013 GFLOP/s, model.**
   - IEEE 802.15.4 at 250 kb/s dominates: communication is 97% of the modelled
     404 s.
+  - The model streams 29×29 output tiles to the nodes but does not enforce node
+    memory for the input strips or softmax rows, does not model the coordinator
+    that holds intermediate matrices, and treats a round's transfers as concurrent
+    although the nodes share one channel, all of which make it optimistic.
   - Softmax needs three global synchronisation rounds.
 
 Distributing attention across constrained nodes converts a compute-bound problem
