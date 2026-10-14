@@ -95,14 +95,14 @@ class GPUFusedParadigm(BaseParadigm):
                 "execution_mode": "real_cuda_fused",
                 "gpu_name": gpu_name,
                 "compute_capability": f"{cc[0]}.{cc[1]}",
-                "precision": "float32",
+                "precision": str(X_t.dtype).replace("torch.", ""),
                 "sdpa_backend_used": backend_used,
                 "backend": "torch.nn.functional.scaled_dot_product_attention",
                 "num_heads": config.NUM_HEADS,
                 "head_dim": embed_dim // config.NUM_HEADS,
                 "note_if_math": (
-                    "T4 (sm_75) + FP32 → SDPA uses math backend (no FlashAttention). "
-                    "Flash requires Ampere+ (sm_80) and FP16/BF16."
+                    "SDPA took the composite math path. FlashAttention needs sm_80+, "
+                    "and the memory-efficient kernel accepts only FP16/FP32 inputs."
                     if "math" in backend_used.lower() else ""
                 ),
             },

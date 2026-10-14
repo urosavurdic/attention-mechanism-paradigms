@@ -1,6 +1,7 @@
 """P01: CPU (Control Flow) - NumPy-based attention execution with roofline estimate."""
 
 import os
+import platform
 import time
 import numpy as np
 
@@ -95,7 +96,7 @@ class CPUParadigm(BaseParadigm):
             steps=steps,
             paradigm_info={
                 "execution_mode": "real_cpu",
-                "cpu_model": "Intel i7 AVX2 (estimated)",
+                "cpu_model": platform.processor() or platform.machine(),
                 "peak_tflops_fp32": config.CPU_PEAK_TFLOPS_FP32,
                 "memory_bw_gb_s": config.CPU_MEMORY_BW_GB_S,
                 "cpu_count": os.cpu_count(),

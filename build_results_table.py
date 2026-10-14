@@ -3,27 +3,27 @@
 Why this script exists
 ----------------------
 The raw CSVs in `results/raw/` come from several sessions on different
-hardware, and merging them by hand went wrong once already. Two paradigms --
-`gpu` (FP32 decomposed) and `tpu_systolic` (decomposed) -- have *both* a real
-hardware measurement, from a Colab session with a T4 and a TPU attached, and a
-modelled fallback, from a local CPU-only sweep where `torch.cuda.is_available()`
-returned False and the paradigm silently took its simulation branch.
+hardware, and two hazards make merging them by hand unsafe.
 
-A previous merge kept the modelled rows for those two paradigms while keeping
-the measured rows for everything else, and the resulting table then described
-all of them as measured. A roofline estimate of 6,592 GFLOP/s sat where a
-measurement of 199 belonged. Comparisons drawn across that table were
-comparing a model against a stopwatch.
+- A sweep on a machine without an accelerator silently takes each accelerator
+  paradigm's modelled fallback (a roofline or cycle estimate), so the newest
+  file can hold models where an older file holds measurements.
+- `combined_all_paradigms.csv`, `scaling_results.csv` and `combined_all_v6.csv`
+  were produced with NumPy 2, under which the input generator's float32 arrays,
+  multiplied by a NumPy float64 scalar, became float64. Their CPU and GPU
+  "FP32" rows therefore measure FP64. `colab_t4_fp32_2026-10-14.csv` measures
+  those paths with float32 inputs (and FP16 in the same session) and supersedes
+  them. TPU rows are unaffected: JAX converts float64 inputs to float32.
 
 So the merge is a script rather than a spreadsheet, and every row carries a
-`measurement_type` saying what produced it.
+`measurement_type` saying what produced it and a `precision`.
 
 Precedence
 ----------
 For each (paradigm, seq_len, embed_dim) key, prefer a real hardware run over a
 modelled one; among rows of equal standing, prefer the newest source file.
-Recency alone is the wrong rule here -- the newest file is the one holding the
-modelled fallbacks.
+Recency alone is the wrong rule here -- a CPU-only sweep can be the newest file
+and hold only modelled fallbacks.
 """
 
 import csv
@@ -36,10 +36,32 @@ OUT = os.path.join(HERE, "results", "combined_results.csv")
 
 # Oldest first. Later files win ties, but never outrank a real measurement.
 SOURCES = [
-    "combined_all_paradigms.csv",   # Colab: real T4 + real TPU v5e, 9 paradigms
+    "combined_all_paradigms.csv",   # Colab: real T4 + real TPU, 9 paradigms
     "scaling_results.csv",          # local CPU-only sweep, all 12 families
     "combined_all_v6.csv",          # merge of the local sweep + a later Colab session
+    "colab_t4_fp32_2026-10-14.csv", # Colab T4 + host CPU, float32 and float16 inputs
 ]
+
+FLOAT32_SOURCE = "colab_t4_fp32_2026-10-14.csv"
+FP16 = {"gpu_fp16", "gpu_fused_fp16"}
+NUMPY_PROMOTED = {"cpu", "cpu_fused", "gpu", "gpu_fused"}
+
+
+def precision(row, source):
+    """Arithmetic precision a row was actually measured in ('' for models)."""
+    short = row["paradigm_short"]
+    kind, real = classify(row)
+    if not real:
+        return ""
+    if source == FLOAT32_SOURCE:
+        return row.get("info_precision", "")
+    if short in FP16:
+        return "float16"
+    if short.startswith("tpu"):
+        return "float32 (6-pass bf16)"
+    if short in NUMPY_PROMOTED:
+        return "float64"
+    return ""
 
 # execution_mode -> (measurement_type, is_real_hardware)
 MODE_KINDS = {
@@ -168,7 +190,8 @@ def main():
                 provenance[key] = (source, kind, real)
 
     fieldnames = ["paradigm", "paradigm_short", "seq_len", "embed_dim",
-                  "measurement_type", "is_real_hardware", "hardware", "source_file",
+                  "measurement_type", "precision", "is_real_hardware", "hardware",
+                  "source_file",
                   "total_flops", "total_effective_time_s", "throughput_gflop_s",
                   "total_memory_bytes", "arithmetic_intensity",
                   "time_qkv_projection", "time_qk_matmul", "time_softmax",
@@ -185,6 +208,7 @@ def main():
             "seq_len": row["seq_len"],
             "embed_dim": row["embed_dim"],
             "measurement_type": kind,
+            "precision": precision(row, source),
             "is_real_hardware": str(real).lower(),
             "hardware": hardware(row),
             "source_file": source,

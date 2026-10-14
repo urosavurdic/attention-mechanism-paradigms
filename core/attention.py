@@ -20,7 +20,9 @@ def generate_inputs(seq_len: int, embed_dim: int, seed: int = 42):
         W_q, W_k, W_v, W_o: (embed_dim, embed_dim)
     """
     rng = np.random.default_rng(seed)
-    scale = 1.0 / np.sqrt(embed_dim)
+    # float32 scalar on purpose: under NumPy 2 a float32 array times a NumPy
+    # float64 scalar is float64, which would silently turn every FP32 run into FP64.
+    scale = np.float32(1.0 / np.sqrt(embed_dim))
     X = rng.standard_normal((seq_len, embed_dim)).astype(np.float32) * scale
     W_q = rng.standard_normal((embed_dim, embed_dim)).astype(np.float32) * scale
     W_k = rng.standard_normal((embed_dim, embed_dim)).astype(np.float32) * scale

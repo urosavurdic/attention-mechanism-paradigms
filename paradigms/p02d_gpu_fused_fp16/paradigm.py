@@ -1,9 +1,8 @@
 """P02d: GPU Fused SDPA FP16 - Fused attention in half precision.
 
-Same SDPA pipeline as p02b_gpu_fused but in FP16, which enables
-FlashAttention / memory-efficient backends on supported GPUs.
-On T4 (sm_75), mem_efficient backend becomes available.
-On A100/H100 (sm_80+), FlashAttention backend is available.
+Same SDPA pipeline as p02b_gpu_fused but in FP16, which adds Tensor Cores.
+On T4 (sm_75) SDPA uses the memory-efficient kernel, as it does for FP32;
+FlashAttention needs sm_80+ (A100/H100 and newer).
 """
 
 import time

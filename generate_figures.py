@@ -51,7 +51,7 @@ paradigm_config = [
     ('gaas_riscv',      'GaAs RISC-V (sim)',             '#795548', '//'),
     ('chemical',        'Chemical (CRN sim)',             '#26A69A', '//'),
     ('quantum',         'Quantum (Gate-based sim)',       '#7E57C2', '//'),
-    ('cdte_turing',     'CdTe Turing (sim)',             '#616161', '//'),
+    ('cdte_turing',     'Minimal-ISA machine (sim)',             '#616161', '//'),
     ('biological',      'Biological (DNA sim)',           '#D81B60', '//'),
 ]
 
@@ -122,6 +122,7 @@ ax2a.set_xticklabels(['Decomposed', 'Fused SDPA'])
 ax2a.set_ylabel('Throughput (GFLOP/s)')
 ax2a.set_yscale('log')
 ax2a.set_title(f'GPU T4: FP32 vs FP16\n(n={maxseq}, d={maxdim})', fontweight='bold')
+ax2a.set_ylim(min(fp32_vals + fp16_vals) / 4, max(fp32_vals + fp16_vals) * 2)
 
 for bar in list(b1) + list(b2):
     h = bar.get_height()
@@ -131,12 +132,12 @@ for bar in list(b1) + list(b2):
 for i in range(2):
     ratio = fp16_vals[i] / fp32_vals[i]
     mid_y = (fp32_vals[i] * fp16_vals[i]) ** 0.5
-    ax2a.annotate(f'{ratio:.0f}x', xy=(i, mid_y), fontsize=11, fontweight='bold',
+    ax2a.annotate(f'{ratio:.1f}x', xy=(i, mid_y), fontsize=11, fontweight='bold',
                   color='#D32F2F', ha='center')
 ax2a.legend(fontsize=10)
 
-labels_b = ['FP32 Decomposed\n(cuBLAS)', 'FP32 Fused\n(math fallback)',
-            'FP16 Decomposed\n(Tensor Cores)', 'FP16 Fused\n(mem_efficient)']
+labels_b = ['FP32 Decomposed\n(cuBLAS)', 'FP32 Fused SDPA\n(mem_efficient)',
+            'FP16 Decomposed\n(Tensor Cores)', 'FP16 Fused SDPA\n(mem_efficient)']
 values_b = fp32_vals + fp16_vals
 bar_colors_b = ['#4CAF50', '#FF9800', '#8BC34A', '#CDDC39']
 bars_b = ax2b.barh(range(4), values_b, color=bar_colors_b, height=0.6, edgecolor='white', linewidth=1.5)
@@ -144,10 +145,11 @@ ax2b.set_yticks(range(4))
 ax2b.set_yticklabels(labels_b, fontsize=9)
 ax2b.set_xlabel('Throughput (GFLOP/s)')
 ax2b.set_xscale('log')
-ax2b.set_title(f'GPU T4: Backend Dispatch Impact\n(sm_75 Turing, n={maxseq}, d={maxdim})', fontweight='bold')
+ax2b.set_title(f'GPU T4: Decomposed vs SDPA by Precision\n(sm_75 Turing, n={maxseq}, d={maxdim})', fontweight='bold')
 ax2b.invert_yaxis()
+ax2b.set_xlim(min(values_b) / 4, max(values_b) * 3)
 for bar, val in zip(bars_b, values_b):
-    ax2b.text(val * 1.3, bar.get_y() + bar.get_height()/2,
+    ax2b.text(val * 1.08, bar.get_y() + bar.get_height()/2,
               f'{val:,.0f}', va='center', fontsize=9, fontweight='bold')
 
 fig2.tight_layout()
@@ -219,7 +221,7 @@ paradigm_style = [
     ('gaas_riscv',      'GaAs RISC-V (sim)','#795548', 'P', '--'),
     ('chemical',        'Chemical (sim)',    '#26A69A', 'd', '--'),
     ('quantum',         'Quantum (sim)',     '#7E57C2', '8', '--'),
-    ('cdte_turing',     'CdTe Turing (sim)','#616161', 'X', '--'),
+    ('cdte_turing',     'Minimal-ISA machine (sim)','#616161', 'X', '--'),
     ('biological',      'Biological (sim)', '#D81B60', '+', '--'),
 ]
 
@@ -265,7 +267,7 @@ heat_paradigms = [
     ('gaas_riscv',   'GaAs RISC-V',  '#795548'),
     ('chemical',     'Chemical',     '#26A69A'),
     ('quantum',      'Quantum',      '#7E57C2'),
-    ('cdte_turing',  'CdTe Turing',  '#616161'),
+    ('cdte_turing',  'Minimal-ISA machine (sim)',  '#616161'),
     ('biological',   'Biological',   '#D81B60'),
 ]
 seq_lens = sorted(df['seq_len'].unique())
@@ -357,7 +359,7 @@ decomp_paradigms = [
     ('gaas_riscv',   'GaAs RISC-V'),
     ('quantum',      'Quantum'),
     ('chemical',     'Chemical'),
-    ('cdte_turing',  'CdTe Turing'),
+    ('cdte_turing',  'Minimal-ISA machine (sim)'),
     ('biological',   'Biological'),
 ]
 
@@ -408,7 +410,7 @@ time_paradigms = [
     ('gaas_riscv',   'GaAs RISC-V', '#795548', 'P', '--'),
     ('quantum',      'Quantum',     '#7E57C2', '8', '--'),
     ('chemical',     'Chemical',    '#26A69A', 'd', '--'),
-    ('cdte_turing',  'CdTe Turing', '#616161', 'X', '--'),
+    ('cdte_turing',  'Minimal-ISA machine (sim)', '#616161', 'X', '--'),
     ('biological',   'Biological',  '#D81B60', '+', '--'),
 ]
 fig8, ax8 = plt.subplots(figsize=(12, 7))

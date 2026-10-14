@@ -3,7 +3,7 @@
 ## Detailed Implementation & Theory Guide
 
 **Talk**: *Analysis of Attention Mechanisms in the Context of Computational Paradigms*
-**Presented at**: Fifth Serbian International Conference on Applied Artificial Intelligence (SICAAI), Kragujevac, 20-21 May 2026. No paper was submitted.
+**Presented at**: Fifth Serbian International Conference on Applied Artificial Intelligence (SICAAI), Kragujevac, 20-21 May 2026.
 **Author**: Uroš Savurdić, School of Electrical Engineering, University of Belgrade
 
 ---
@@ -61,7 +61,7 @@ Modern CPUs (Intel i7/Xeon, AMD EPYC) execute attention through:
 - **BLAS libraries**: OpenBLAS/MKL achieve near-peak FLOPS via tiled matrix multiply
 
 #### Our Model
-- **Hardware reference**: Intel i7 with AVX2 (8 cores × 3.8 GHz)
+- **Hardware reference** (roofline only; measurements ran on the Colab T4 runtime's two-vCPU Xeon host): Intel i7 with AVX2 (8 cores × 3.8 GHz)
 - **Peak FP32**: 0.5 TFLOPS (theoretical: 8 cores × 16 FP32 ops/cycle × 3.8 GHz)
 - **Memory bandwidth**: 50 GB/s (DDR4-3200 dual-channel)
 - **Model**: Roofline — per step, time = max(FLOPs/peak_compute, bytes/bandwidth)
@@ -84,7 +84,7 @@ GPUs (NVIDIA T4/A100) achieve massive parallelism through:
 - **Thousands of CUDA cores**: T4 has 2,560 FP32 cores
 - **Thread blocks**: warps of 32 threads, hardware-scheduled
 - **Shared memory**: 48-164 KB per SM, explicit programmer control
-- **Memory bandwidth**: 320-2000 GB/s (HBM)
+- **Memory bandwidth**: 320 GB/s (GDDR6, T4) to 2,000 GB/s (HBM, A100)
 - **Kernel launch overhead**: ~10 µs per kernel dispatch
 
 #### Our Model
@@ -101,7 +101,7 @@ GPUs (NVIDIA T4/A100) achieve massive parallelism through:
 - Reports `execution_mode: "real_cuda"` or `"roofline_simulation"`
 
 #### Key Insight
-GPU achieves 16x higher peak than CPU (8.1 vs 0.5 TFLOPS). At n=1024, d=128 the workload is large enough to saturate GPU cores. Kernel launch overhead (5×10µs = 50µs) becomes significant at small sizes — at n=128, launch overhead is ~30% of total time.
+In the roofline model the GPU's peak is 16x the CPU's (8.1 vs 0.5 TFLOPS). Measured on the T4, fixed per-operation cost dominates small sizes: at n=128, d=64 each of the five decomposed stages takes 33–93 µs whatever its size, and decomposed FP32 attention reaches 49% of the nominal FP32 peak only at n=2048, d=256.
 
 ---
 
@@ -132,11 +132,11 @@ The question this paradigm answers: "What is the instruction-level cost of atten
   - Compiles 4×4 demo for instruction breakdown verification
 
 #### Key Insight
-At n=1024, d=128: total ~4.4 billion cycles → 4.4 seconds at 1 GHz. The sequential execution is 3000x slower than CPU despite similar clock speed. This demonstrates why parallelism (SIMD, multiple ALUs) is essential — raw clock speed alone cannot serve attention's computational demands.
+At n=1024, d=128: total ~4.4 billion cycles → 4.4 seconds at 1 GHz, about 160 times the measured CPU time for the same work. The 1 GHz clock is itself optimistic: GaAs microprocessors of the period were designed for about 200 MHz. This demonstrates why parallelism (SIMD, multiple ALUs) is essential — raw clock speed alone cannot serve attention's computational demands.
 
 ---
 
-### 2.4 P04: CdTe (Turing Machine) — Fundamental Computational Limits
+### 2.4 P04: Minimal-ISA Machine (`cdte_turing`) — Fundamental Computational Limits
 
 #### Real-World Context
 Cadmium Telluride (CdTe) represents the theoretical extreme: a processor with so few transistors that only the most primitive operations are possible. This paradigm explores:
@@ -161,7 +161,7 @@ Real CdTe semiconductors are used primarily in solar cells and X-ray/gamma detec
 - Integer scale: float values mapped to [0, 10], so average multiply costs (5)² = 25 INC operations
 
 #### Key Insight
-At n=1024, d=128: **~9.5 billion TM operations → 949 seconds at 10 MHz**. This is 7.5 million times slower than GPU. The fundamental lesson: hardware multipliers provide enormous speedup. A single `FMUL` instruction (3 cycles on GaAs) replaces ~25 primitive operations. Softmax (requiring exp/div) is even more catastrophic — these transcendental functions explode into thousands of TM ops each.
+At n=1024, d=128: **~9.5 billion TM operations → 949 seconds at 10 MHz**, about 2 million times the measured FP32 GPU time. The fundamental lesson: hardware multipliers provide enormous speedup. A single `FMUL` instruction (3 cycles on GaAs) replaces ~25 primitive operations. Softmax (requiring exp/div) is even more catastrophic — these transcendental functions explode into thousands of TM ops each.
 
 ---
 
@@ -191,7 +191,7 @@ The Mathematical Institute of SANU (Serbian Academy of Sciences) has a Maxeler m
 - `paradigm.py`: Correct stream lengths (3·n·d for QKV, n² for QK^T, etc.), divides by parallel_pipes
 
 #### Key Insight
-Dataflow is slightly faster than CPU (490 vs 448 GFLOP/s) despite lower raw clock (500 vs 3800 MHz). The advantage comes from:
+The model reaches about 490 GFLOP/s at n=1024, d=128 at 500 MHz. Published Maxeler designs ran at 100–180 MHz with up to ~956 floating-point operations per cycle, so the model is an optimistic bound, roughly 5x above what a real engine of that generation would deliver. In the model, the advantages come from:
 1. Zero instruction fetch/decode overhead
 2. Guaranteed data delivery (no cache misses)
 3. High utilization in steady state (all pipeline stages active simultaneously)
@@ -204,7 +204,7 @@ The disadvantage: pipeline fill/drain overhead, and the softmax pipeline is comp
 ### 2.6 P06: TPU (Systolic Array) — 2D Processing Element Array
 
 #### Real-World Architecture
-Google's Tensor Processing Unit (TPU v1, 2015):
+Google's TPU cores from v2 to v5 each use 128×128 systolic matrix units (TPU v1 used a 256×256 8-bit array):
 - **128×128 systolic array** (Matrix Multiply Unit — MXU)
 - **Weight-stationary dataflow**: weights loaded once, activations stream through
 - **Staggered feeding**: row i of A enters i cycles late; column j of B enters j cycles late
@@ -214,7 +214,7 @@ Google's Tensor Processing Unit (TPU v1, 2015):
 - **Deterministic execution**: no caches, no branch prediction
 
 #### Our Model
-- **Array size**: 128×128 PE grid (TPU v1 MXU scale)
+- **Array size**: 128×128 PE grid (TPU v2–v5 MXU scale)
 - **Tiling**: matrices larger than 128 are tiled; tiles computed sequentially
 - **Cycles per tile**: K_dim + array_size + array_size - 2 (streaming + fill/drain)
 - **Softmax**: 5·n² ops on 128-wide vector unit → (5·n²)/128 cycles
@@ -227,13 +227,13 @@ Google's Tensor Processing Unit (TPU v1, 2015):
 - Reports PE utilization: how many of 128² PEs do useful work per tile
 
 #### Key Insight
-TPU is the fastest paradigm (5389 GFLOP/s at n=1024, d=128) because:
+The measured TPU is the fastest implementation (3,410 GFLOP/s fused at n=1024, d=128; 15,772 at n=2048, d=256) because:
 1. **Massive parallelism**: 16,384 MACs per cycle in steady state
 2. **Data reuse**: weight-stationary means each weight is loaded once, used 128 times
 3. **No instruction overhead**: fixed-function hardware, deterministic
 4. **Well-matched to attention**: attention is dominated by matmul (85%+ of FLOPs)
 
-The weakness: softmax must go through the vector unit (128-wide, not 16384-wide), creating an architectural bottleneck. At n=1024: matmul takes ~43µs, softmax takes ~59µs — softmax is actually the bottleneck on TPU!
+In the systolic cycle model, softmax runs on the 128-wide vector unit rather than the 16,384-MAC array, which makes it the model's largest single stage at n=1024. The measured per-stage TPU timings cannot confirm this: each separately dispatched stage takes 137–197 µs at n=1024, d=128 whatever its FLOPs, which is dispatch, not arithmetic.
 
 ---
 
@@ -257,7 +257,7 @@ Key advantages: speed-of-light propagation, massive parallelism within the mesh,
 - `paradigm.py`: OpticalParadigm using MZIMesh for all 5 attention steps
 
 #### Key Insight
-Optical achieves 510 GFLOP/s at n=2048, d=256 — competitive with CPU (18 GFLOP/s) and approaching dataflow (977 GFLOP/s). The bottleneck is softmax: converting from optical to electronic domain for exp/max/div, then back. This is a direct manifestation of Conclusion 4 — the 1% FLOP operation dominates execution because it forces domain conversion.
+The model gives 510 GFLOP/s at n=2048, d=256. Its optical matrix products take only 66 µs; softmax, computed on a scalar 2 GHz electronic unit, takes 10.5 ms, of which the per-row OEO latency is only 20 µs. The modelled time is therefore set by the electronic unit that computes the nonlinearity, not by domain conversion. The model also omits reprogramming the mesh: in attention K and V are activations, so an MZI mesh would need run-time reconfiguration, which takes 100 ns to microseconds per tile on built devices.
 
 ---
 
@@ -390,9 +390,9 @@ IoT Edge achieves 0.11 GFLOP/s at n=2048, d=256 (49 seconds). This is below GaAs
 | Warmup runs | 2 |
 | Benchmark runs | 5 (best taken) |
 | Precision | FP32 (+ FP16 for GPU) |
-| Real hardware paradigms | 10 (CPU, GPU, TPU: decomposed + fused, GPU FP16 variants) |
-| Simulated paradigms | 7 (Dataflow, Optical, GaAs, CdTe, WSN, IoT Edge + capped: Quantum, Chemical, Biological) |
-| Total | 17 paradigms × 15 configurations = 255 data points |
+| Measured implementations | 8 (CPU, GPU FP32 and GPU FP16, each decomposed and fused SDPA; TPU decomposed and fused) |
+| Modelled implementations | 9 (Dataflow, Optical, GaAs, minimal-ISA, WSN, IoT Edge; Quantum, Chemical and Biological at n=32, d=16 only) |
+| Total | 213 rows (14 implementations × 15 configurations + 3 capped models) |
 
 ### 3.2 Timing Model
 
@@ -417,33 +417,30 @@ This captures whether a step is **compute-bound** (limited by arithmetic through
 
 ### 4.1 Performance Ranking (n=2048, d=256)
 
-| Paradigm | Effective Time | Throughput | vs CPU | Source |
-|----------|---------------|------------|--------|--------|
-| TPU Fused (JAX) | 0.342 ms | 15,771.71 GFLOP/s | **870x** | measured |
-| GPU FP16 Decomposed | 0.476 ms | 11,326.67 GFLOP/s | **624x** | measured |
-| GPU FP16 Fused SDPA | 0.560 ms | 9,632.69 GFLOP/s | **531x** | measured |
-| TPU Decomposed (per-op JIT) | 1.098 ms | 4,908.19 GFLOP/s | **271x** | measured |
-| Dataflow (Maxeler-style) | 5.514 ms | 977.43 GFLOP/s | **54x** | cycle model |
-| Optical (MZI mesh) | 10.57 ms | 509.82 GFLOP/s | **28x** | latency model |
-| GPU FP32 Decomposed | 27.07 ms | 199.09 GFLOP/s | **11x** | measured |
-| GPU FP32 Fused SDPA | 51.72 ms | 104.21 GFLOP/s | **5.7x** | measured |
-| CPU Decomposed | 297 ms | 18.14 GFLOP/s | 1.0x | measured |
-| CPU Fused SDPA | 304 ms | 17.75 GFLOP/s | ~1.0x | measured |
-| GaAs RISC-V | 35.1 s | 0.15 GFLOP/s | **0.008x** | instruction cost model |
-| IoT Edge (ARM M4F) | 49.2 s | 0.11 GFLOP/s | **0.006x** | MCU cycle model |
-| WSN (64 nodes) | 404 s | 0.013 GFLOP/s | **0.0007x** | network latency model |
-| CdTe Turing | 7,554 s | 0.0007 GFLOP/s | **0.00004x** | operation cost model |
+| Paradigm | Precision | Effective Time | Throughput | Source |
+|----------|-----------|---------------|------------|--------|
+| TPU Fused (one jit) | FP32 (6-pass bf16) | 0.342 ms | 15,771.71 GFLOP/s | measured |
+| GPU FP16 Fused SDPA | FP16 | 0.575 ms | 9,368.01 GFLOP/s | measured |
+| GPU FP16 Decomposed | FP16 | 0.592 ms | 9,102.71 GFLOP/s | measured |
+| TPU Decomposed (five jits) | FP32 (6-pass bf16) | 1.098 ms | 4,908.19 GFLOP/s | measured |
+| GPU FP32 Decomposed | FP32 | 1.347 ms | 4,001.98 GFLOP/s | measured |
+| GPU FP32 Fused SDPA | FP32 | 2.289 ms | 2,354.38 GFLOP/s | measured |
+| Dataflow (Maxeler-style) | – | 5.514 ms | 977.43 GFLOP/s | cycle model |
+| Optical (MZI mesh) | – | 10.57 ms | 509.82 GFLOP/s | latency model |
+| CPU Fused SDPA (PyTorch) | FP32 | 75.7 ms | 71.24 GFLOP/s | measured |
+| CPU Decomposed (NumPy) | FP32 | 140.9 ms | 38.24 GFLOP/s | measured |
+| GaAs RISC-V | – | 35.1 s | 0.15 GFLOP/s | instruction cost model |
+| IoT Edge (ARM M4F) | – | 49.2 s | 0.11 GFLOP/s | MCU cycle model |
+| WSN (64 nodes) | – | 404 s | 0.013 GFLOP/s | network latency model |
+| Minimal ISA (`cdte_turing`) | – | 7,554 s | 0.0007 GFLOP/s | operation cost model |
 
 *Capped paradigms (n=32, d=16): Quantum 0.00064, Chemical 0.00023, Biological 1.2×10⁻⁸ GFLOP/s — all cost models*
 
-> **Provenance.** The `Source` column is not decoration. `gpu` (FP32 decomposed)
-> and `tpu_systolic` each have both a real hardware run and a modelled fallback
-> in the raw exports, because the local sweep that produced the newest CSV had
-> no CUDA or TPU device attached and those paradigms silently took their
-> simulation branch. An earlier version of this table listed the modelled values
-> — 6,592 and 8,706 — as measured. The measured values are 199.09 and 4,908.19.
-> `build_results_table.py` now performs the merge, preferring a measurement over
-> a model wherever both exist.
+> **Provenance.** `combined_results.csv` stamps every row with a
+> `measurement_type` and a `precision`. The CPU and GPU rows come from one Colab
+> T4 session with float32 and float16 inputs; the TPU rows from a Colab TPU
+> session. `build_results_table.py` performs the merge and never lets a
+> modelled fallback displace a measurement.
 
 ### 4.2 Scaling Behavior
 
@@ -453,96 +450,107 @@ grow only linearly in n. Going from n=128 to n=1024 at d=128, the work grows
 
 | From n=128 to n=1024 (d=128) | Time ratio | Source |
 |------|-----------|--------|
-| CPU | 71.9x | measured |
-| GPU FP32 | 3.8x | measured |
-| TPU | 1.3x | measured |
+| CPU (NumPy) | 38.3x | measured |
+| GPU FP32 | 1.45x | measured |
+| GPU FP16 | 0.93x | measured |
+| TPU fused | 1.50x | measured |
 | Dataflow | 23.5x | model |
 | GaAs | 26.8x | model |
-| CdTe | 26.8x | model |
+| Minimal ISA | 26.8x | model |
 
-Work grows 26.8x over this range. The cost models track it almost exactly --
-Dataflow 23.5x, GaAs and CdTe 26.8x -- because they have no cache and no
-parallelism, so time is proportional to operations by construction.
+The cost models track the work almost exactly, because they have no cache and
+no parallelism, so time is proportional to operations by construction.
 
-The measured hardware does not. CPU grows **71.9x**, well ahead of the work,
-as the n×n score matrix outgrows cache. GPU grows 3.8x and TPU 1.3x, far
-behind the work, because at n=128 both are dominated by fixed overhead --
-kernel launch on the GPU, dispatch on the TPU -- so the added arithmetic is
-absorbed by parallelism that was already idle.
+The measured hardware does not. The CPU grows 38.3x, ahead of the work, as the
+n×n score matrix outgrows cache and the single-threaded softmax grows with n².
+The accelerators barely grow at all over this range, and the FP16 GPU time even
+falls slightly (within session noise), because at batch size one both are
+dominated by fixed per-operation costs — kernel launch, dispatch and host
+synchronisation.
 
 ### 4.3 Per-Step Analysis
 
-At n=1024, d=128 on CPU (measured):
-- **QKV projection**: 7,774µs (8.5%) — 3x (n,d)@(d,d)
-- **QK matmul**: 24,099µs (26.4%) — (n,d)@(d,n), builds the n×n score matrix
-- **Softmax**: 38,992µs (42.7%) — element-wise over n×n, memory-bound
-- **AV matmul**: 18,570µs (20.3%) — (n,n)@(n,d)
-- **Output proj**: 1,841µs (2.0%) — (n,d)@(d,d)
+At n=1024, d=128 on CPU (measured, NumPy, FP32):
+- **QKV projection**: 1,333 µs (4.9%)
+- **QK matmul**: 6,495 µs (23.8%)
+- **Softmax**: 12,494 µs (45.8%)
+- **AV matmul**: 6,113 µs (22.4%)
+- **Output projection**: 872 µs (3.2%)
 
-Softmax is 0.4% of the FLOPs and **43% of the time** — the single
-largest line item, ahead of either of the big matmuls. It is pure memory
-traffic over a matrix that does not fit in cache.
+Softmax is 0.4% of the FLOPs and **46% of the time** — the single largest line
+item. NumPy computes it as five separate single-threaded passes over a matrix
+that does not fit in cache, while the matrix products use a multithreaded BLAS.
 
-On TPU at the same size (measured):
-- **Matmul steps**: 622µs combined (81%) — the systolic array absorbs these
-- **Softmax**: 144µs (19%) — runs on the narrow vector unit, not the MXU
+On the TPU at the same size (measured, five separate jits), every stage takes
+137–197 µs whatever its FLOPs. The per-stage TPU numbers measure dispatch and
+host synchronisation, not the arithmetic of each stage.
 
 ### 4.4 Arithmetic Intensity Analysis
 
-| Paradigm | Arith. Intensity (FLOPs/Byte) | Throughput (GFLOP/s) |
-|----------|------------------------------|---------------------|
-| TPU Fused | 57.75 | 15,772 |
-| GPU FP16 | 115.51 | 11,327 |
-| TPU Decomp | 57.75 | 4,908 |
-| Dataflow | 57.75 | 977 |
-| GPU FP32 | 57.75 | 199 |
-| Optical | 57.75 | 510 |
-| CPU | 57.75 | 18 |
-| GaAs | 57.75 | 0.15 |
-| IoT Edge | 57.75 | 0.11 |
-| WSN | 57.75 | 0.013 |
-| CdTe | 57.75 | 0.0007 |
+| Paradigm | Arith. Intensity (FLOPs/Byte) | Throughput (GFLOP/s) | Source |
+|----------|------------------------------|---------------------|--------|
+| TPU Fused | 57.75 | 15,772 | measured |
+| GPU FP16 Fused | 115.51 | 9,368 | measured |
+| GPU FP16 | 115.51 | 9,103 | measured |
+| TPU Decomp | 57.75 | 4,908 | measured |
+| GPU FP32 | 57.75 | 4,002 | measured |
+| GPU FP32 Fused | 57.75 | 2,354 | measured |
+| Dataflow | 57.75 | 977 | model |
+| Optical | 57.75 | 510 | model |
+| CPU Fused | 57.75 | 71 | measured |
+| CPU | 57.75 | 38 | measured |
+| GaAs | 57.75 | 0.15 | model |
+| IoT Edge | 57.75 | 0.11 | model |
+| WSN | 57.75 | 0.013 | model |
+| Minimal ISA | 57.75 | 0.0007 | model |
 
-All paradigms have the same arithmetic intensity (same computation, same data), but achieve vastly different throughput. This is the essence of the result: **the algorithm is fixed, the architecture determines performance**.
+The same computation moves the same data in every row (FP16 rows move half the
+bytes, so their intensity doubles), yet throughput differs by orders of
+magnitude. **The algorithm is fixed; the architecture and the software path
+determine performance.**
 
 ---
 
 ## 4.5 What these numbers do and do not support
 
-Four limits are worth stating before the insights section leans on any of this.
+Five limits are worth stating before the insights section leans on any of this.
 
 **Measured against modelled.** Eight implementations are timed on hardware and
 nine are calculated. `combined_results.csv` marks every row, and no comparison
-in this document crosses that line. It did once: the 4.1 table previously
-listed a roofline estimate of 6,592 GFLOP/s and a systolic cycle model of 8,706
-as measured results, and a fusion comparison drawn against them reported 63x
-where the measured answer is 1.9x.
+in this document draws a conclusion across that line.
+
+**Precision.** Under NumPy 2, a float32 array multiplied by a NumPy float64
+scalar becomes float64, so an input generator that scales by `1 / np.sqrt(d)`
+silently produces float64 data. Every path that does not cast then runs in
+FP64: on the T4, decomposed attention runs at 199 GFLOP/s in FP64 against 4,002
+in FP32, and SDPA falls to its unfused math path at 104 GFLOP/s, because the
+fused kernels accept only FP16 and FP32. The generator casts the scale to
+float32, and every row records its precision.
 
 **Single-head against multi-head.** The decomposed path (`reference_attention`)
 computes single-head attention at the full embedding width. The fused path
 (`run_fused_sdpa`) reshapes into 8 heads before calling SDPA. The FLOP counts
-are identical, so throughput is comparable, but the two do not produce the same
-tensor, and the fused path's smaller per-head matrices are part of why it loses
-on the T4. This is a property of the comparison, not a bug in either path.
+match apart from softmax, which is eight times larger in the fused path, so
+throughput is comparable, but the two do not produce the same tensor.
 
 **Arithmetic intensity of fused rows.** Fused implementations report the
 *decomposed* memory traffic, because that is what the analytical model in
 `core/attention.py` computes. Their true traffic is lower -- not materialising
 the n×n score matrix is precisely what fusion buys. So the arithmetic
-intensity shown for a fused row is a lower bound, and the uniform 57.75
-FLOP/byte in 4.4 describes the decomposed algorithm rather than what the fused
-kernel actually moves.
+intensity shown for a fused row is a lower bound.
 
 **Cost models are declared, not fitted.** The nine modelled paradigms take
 clock rates, latencies and per-operation costs from `config.py` and published
 device characteristics. Nothing in them is calibrated against a measurement of
-the substrate they describe, because for most of these substrates no such
-device exists at this scale. They are order-of-magnitude arguments about
-architecture, and the roofline model is the one case where a prediction can be
-checked: it puts GPU FP32 decomposed at 6,592 GFLOP/s against a measured
-199.09, so on this workload it overestimates by 33x. Peak-bandwidth roofline
-assumes perfect overlap and ignores kernel launch, dispatch and the fact that
-these matrices are small enough that a T4 never reaches steady state.
+the substrate they describe, and checked against the literature every one is
+optimistic -- GaAs processors of the period were designed for ~200 MHz rather
+than 1 GHz, built photonic engines run at ~1 GHz with weight updates at ~10
+MHz, error-corrected quantum operations take microseconds rather than 50 ns,
+and demonstrated DNA circuits take hours per layer rather than seconds. Every
+correction makes the substrate slower, so the ordering is robust and the
+absolute numbers are bounds. The roofline model is the one case where a
+prediction can be checked: it puts GPU FP32 decomposed at 6,592 GFLOP/s
+against a measured 4,002, an upper bound as a roofline should be.
 
 ---
 
@@ -554,9 +562,9 @@ these matrices are small enough that a T4 never reaches steady state.
 
 2. **Softmax is the architectural discriminator**: It's memory-bound (low arithmetic intensity) and non-trivially parallelizable (requires row-wise reductions). TPU handles it on a separate vector unit; GPU uses shared memory reductions; CPU benefits from cache locality.
 
-3. **Parallelism is non-negotiable**: GaAs at 1 GHz achieves 0.15 GFLOP/s (sequential). CPU at 3.8 GHz achieves 18 GFLOP/s (parallel). TPU at 700 MHz achieves 15,772 GFLOP/s (massively parallel systolic array). The gap is entirely due to parallelism.
+3. **Parallelism is non-negotiable**: the scalar GaAs model at 1 GHz reaches 0.15 GFLOP/s, while the measured two-vCPU CPU reaches 38 GFLOP/s and the measured TPU 15,772 GFLOP/s. The first is a model and the others are measurements, so read this as an order-of-magnitude argument.
 
-4. **Unconventional computing has fundamental limits for dense LA**: Optical, quantum, chemical, and biological paradigms are optimized for different problem classes. Dense matrix multiplication — the core of attention — is their worst case. Even optical computing (which uses light-speed propagation) is bottlenecked by OEO conversion for nonlinear operations.
+4. **Unconventional computing has fundamental limits for dense LA**: Optical, quantum, chemical, and biological paradigms are optimized for different problem classes. Dense matrix multiplication — the core of attention — is their worst case. Even optical computing (which uses light-speed propagation) is bottlenecked, in the model, by the electronic unit that computes the nonlinearity.
 
 5. **Communication dominates at the edge**: Distributing attention across constrained nodes (WSN) converts a compute-bound problem into a communication-bound one. The wireless link (250 kbps) becomes the bottleneck, not the MCU compute capacity.
 
@@ -567,14 +575,14 @@ these matrices are small enough that a T4 never reaches steady state.
 | Biological DNA | ~0 (molecular) | 60 seconds | Molecular timescales dominate |
 | Chemical CRN | ~0 (molecular) | 16 ms (K=16) | Reaction kinetics limit speed |
 | Quantum | ~10K (qubits) | 90 µs (1792 gates) | Gate overhead negates parallelism |
-| CdTe | ~100s | O(a×b) ops | Hardware multiplier = transformative |
+| Minimal ISA (`cdte_turing`) | ~100s | O(a×b) ops | Hardware multiplier = transformative |
 | GaAs | ~10K | 3 cycles | Specialization matters |
 | IoT M4F | ~100M | 3 cycles (+tiling) | Memory constraints force overhead |
 | CPU | ~1B | 1 cycle (+ SIMD×8) | Parallelism within core |
 | GPU | ~10B | 1 cycle (× 2560 cores) | Massive replication |
 | TPU | ~10B | 1 cycle (× 16384 PEs) | Fixed-function = efficiency |
 | Dataflow | FPGA | 1 cycle (× pipes) | Spatial computing = no fetch |
-| Optical | photonic | ~0.1 ns (light) | Speed of light + OEO bottleneck |
+| Optical | photonic | ~0.1 ns (light) | Speed of light + electronic nonlinearity |
 
 ### 5.3 Why This Matters for AI Hardware
 
@@ -593,15 +601,12 @@ python run_all.py
 
 # Results location
 results/
-├── scaling_results.csv          # Raw data (48 rows)
-├── paradigm_comparison.png      # Bar chart
-├── scaling_curves.png           # Time vs seq_len
-├── step_breakdown.png           # Per-step stacked bars
-├── arithmetic_intensity.png     # Roofline-style scatter
-├── results_table.md             # Markdown table
-├── results_table.tex            # LaTeX table
-└── logs/
-    └── experiment_*.json        # Full JSON with paradigm_specific data
+├── combined_results.csv         # canonical table (build_results_table.py)
+├── results_table.md / .tex      # the same table, rendered
+├── fig1_ ... fig8_*.png         # figures (generate_figures.py)
+├── SICAAI-2026-report.pdf       # report (generate_report.py)
+├── raw/                         # raw exports of every session
+└── sweep/                       # local sweeps (not tracked)
 ```
 
 ### 6.1 Running on Google Colab (GPU)
