@@ -99,7 +99,7 @@ Checked against the literature, every model is optimistic:
 
 Every such correction makes the substrate slower. The corrections differ in
 size, so the models suggest broad performance tiers rather than a reliable
-ranking, and the absolute numbers are optimistic estimates, not predictions.
+ranking, and the absolute numbers are optimistic estimates.
 
 The roofline model is the one case that can be checked against a measurement of
 the same thing. It puts GPU FP32 decomposed at 6,592 GFLOP/s against a measured
@@ -158,12 +158,12 @@ paths are within session-to-session variation.
 
 ## How it is built
 
-- `core/` — attention decomposition, FLOP and memory counting, metrics
+- `core/`: attention decomposition, FLOP and memory counting, metrics
   dataclasses, the `BaseParadigm` interface, a registry decorator.
-- `paradigms/pNN_*/` — one subpackage per implementation, each returning the
+- `paradigms/pNN_*/`: one subpackage per implementation, each returning the
   same `ParadigmResult` shape.
-- `benchmarks/`, `visualization/` — sweep runner and plotting.
-- `build_results_table.py` — merges the raw exports into the canonical table.
+- `benchmarks/`, `visualization/`: sweep runner and plotting.
+- `build_results_table.py`: merges the raw exports into the canonical table.
 
 To add a paradigm:
 
@@ -185,4 +185,4 @@ Intelligence (SICAAI), Kragujevac, 20–21 May 2026.
 
 ---
 
-Uroš Savurdić — School of Electrical Engineering, University of Belgrade.
+Uroš Savurdić, School of Electrical Engineering, University of Belgrade.
